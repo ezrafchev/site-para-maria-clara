@@ -23,6 +23,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     });
 
+    // Menu mobile
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+
+    menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+    });
+
     // Animação suave de rolagem para links internos
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -104,5 +112,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
         galleryImages.forEach((img, index) => {
             img.style.transform = `translateY(${scrollPosition * 0.1 * (index + 1)}px)`;
         });
+    });
+
+    // Botão "Voltar ao topo"
+    const backToTopButton = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopButton.style.display = 'block';
+        } else {
+            backToTopButton.style.display = 'none';
+        }
+    });
+
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 });

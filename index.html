@@ -6,6 +6,7 @@
     <title>Esdra ♥ Maria Clara - Nossa História de Amor</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -15,7 +16,12 @@
     <header>
         <nav>
             <div class="logo">E&M</div>
-            <ul>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
                 <li><a href="#inicio" class="nav-link">Início</a></li>
                 <li><a href="#nossa-historia" class="nav-link">Nossa História</a></li>
                 <li><a href="#momentos" class="nav-link">Momentos Especiais</a></li>
@@ -26,9 +32,11 @@
     </header>
 
     <main>
-        <section id="inicio" class="hero">
-            <h1 class="floating-element">Esdra & Maria Clara</h1>
-            <p class="floating-element">Uma história de amor eterno</p>
+        <section id="inicio" class="hero parallax-bg">
+            <div class="hero-content">
+                <h1 class="floating-element">Esdra & Maria Clara</h1>
+                <p class="floating-element">Uma história de amor eterno</p>
+            </div>
             <div class="moon floating-element"></div>
             <div class="stars"></div>
         </section>
@@ -89,6 +97,8 @@
     <footer>
         <p>&copy; 2024 Esdra & Maria Clara. Todos os direitos reservados.</p>
     </footer>
+
+    <button id="back-to-top" aria-label="Voltar ao topo">↑</button>
 
     <script src="script.js"></script>
 </body>
