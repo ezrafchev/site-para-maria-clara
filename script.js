@@ -117,21 +117,32 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const backgroundMusic = document.getElementById('background-music');
     let isMusicPlaying = false;
 
+    // Função para tocar música
+    function playMusic() {
+        backgroundMusic.play().then(() => {
+            isMusicPlaying = true;
+            musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+        }).catch((error) => {
+            console.log("Erro ao tocar música:", error);
+        });
+    }
+
     // Tenta iniciar a música automaticamente
-    backgroundMusic.play().then(() => {
-        isMusicPlaying = true;
-        musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
-    }).catch((error) => {
-        console.log("Reprodução automática bloqueada pelo navegador:", error);
-    });
+    playMusic();
+
+    // Adiciona um evento de interação do usuário para iniciar a música
+    document.body.addEventListener('click', () => {
+        if (!isMusicPlaying) {
+            playMusic();
+        }
+    }, { once: true });
 
     musicToggle.addEventListener('click', () => {
         if (isMusicPlaying) {
             backgroundMusic.pause();
             musicToggle.innerHTML = '<i class="fas fa-music"></i>';
         } else {
-            backgroundMusic.play();
-            musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+            playMusic();
         }
         isMusicPlaying = !isMusicPlaying;
     });
