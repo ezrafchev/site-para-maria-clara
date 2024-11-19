@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esdra ♥ Maria Clara - Nossa História de Amor</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Montserrat:wght@300;400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="cursor"></div>
@@ -17,23 +18,21 @@
         <nav>
             <div class="logo">E&M</div>
             <button class="menu-toggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
+                <i class="fas fa-bars"></i>
             </button>
             <ul class="nav-menu">
-                <li><a href="#inicio" class="nav-link">Início</a></li>
-                <li><a href="#nossa-historia" class="nav-link">Nossa História</a></li>
-                <li><a href="#momentos" class="nav-link">Momentos Especiais</a></li>
-                <li><a href="#galeria" class="nav-link">Galeria</a></li>
-                <li><a href="#mensagem" class="nav-link">Mensagem de Amor</a></li>
+                <li><a href="#inicio" class="nav-link"><i class="fas fa-home"></i> Início</a></li>
+                <li><a href="#nossa-historia" class="nav-link"><i class="fas fa-book-open"></i> Nossa História</a></li>
+                <li><a href="#momentos" class="nav-link"><i class="fas fa-clock"></i> Momentos Especiais</a></li>
+                <li><a href="#galeria" class="nav-link"><i class="fas fa-images"></i> Galeria</a></li>
+                <li><a href="#mensagem" class="nav-link"><i class="fas fa-heart"></i> Mensagem de Amor</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section id="inicio" class="hero parallax-bg">
-            <div class="hero-content">
+            <div class="hero-content" data-aos="fade-up">
                 <h1 class="floating-element">Esdra & Maria Clara</h1>
                 <p class="floating-element">Uma história de amor eterno</p>
             </div>
@@ -43,8 +42,8 @@
         </section>
 
         <section id="nossa-historia" class="content-section">
-            <h2 class="section-title">Nossa História</h2>
-            <div class="text-content">
+            <h2 class="section-title" data-aos="fade-up">Nossa História</h2>
+            <div class="text-content" data-aos="fade-up">
                 <p>Querida Maria Clara Casagrande de Mattos,</p>
                 <p>Este site é uma homenagem ao nosso amor. Desde o momento em que nos conhecemos, minha vida se encheu de luz e felicidade. Seu apoio incondicional, sua força e seu carinho são minha inspiração diária.</p>
                 <p>Cada momento ao seu lado é precioso, e sou eternamente grato por ter você em minha vida. Você é minha parceira, minha melhor amiga e meu amor eterno.</p>
@@ -55,25 +54,25 @@
         </section>
 
         <section id="momentos" class="content-section">
-            <h2 class="section-title">Momentos Especiais</h2>
+            <h2 class="section-title" data-aos="fade-up">Momentos Especiais</h2>
             <div class="timeline">
-                <div class="event">
+                <div class="event" data-aos="fade-right">
                     <div class="date">15 de Janeiro de 2020</div>
                     <div class="description">Primeiro Encontro</div>
                 </div>
-                <div class="event">
+                <div class="event" data-aos="fade-left">
                     <div class="date">14 de Fevereiro de 2020</div>
                     <div class="description">Primeiro Beijo</div>
                 </div>
-                <div class="event">
+                <div class="event" data-aos="fade-right">
                     <div class="date">1 de Maio de 2020</div>
                     <div class="description">Pedido de Namoro</div>
                 </div>
-                <div class="event">
+                <div class="event" data-aos="fade-left">
                     <div class="date">10 de Julho de 2020</div>
                     <div class="description">Primeira Viagem Juntos</div>
                 </div>
-                <div class="event">
+                <div class="event" data-aos="fade-right">
                     <div class="date">25 de Dezembro de 2021</div>
                     <div class="description">Pedido de Casamento</div>
                 </div>
@@ -82,18 +81,26 @@
         </section>
 
         <section id="galeria" class="content-section">
-            <h2 class="section-title">Galeria de Amor</h2>
+            <h2 class="section-title" data-aos="fade-up">Galeria de Amor</h2>
             <div class="gallery">
-                <img src="https://picsum.photos/800/600?random=1" alt="Foto 1" class="gallery-img">
-                <img src="https://picsum.photos/800/600?random=2" alt="Foto 2" class="gallery-img">
-                <img src="https://picsum.photos/800/600?random=3" alt="Foto 3" class="gallery-img">
-                <img src="https://picsum.photos/800/600?random=4" alt="Foto 4" class="gallery-img">
+                <div class="gallery-item" data-aos="zoom-in">
+                    <img src="https://source.unsplash.com/random/800x600?couple" alt="Foto 1" class="gallery-img">
+                </div>
+                <div class="gallery-item" data-aos="zoom-in">
+                    <img src="https://source.unsplash.com/random/800x600?love" alt="Foto 2" class="gallery-img">
+                </div>
+                <div class="gallery-item" data-aos="zoom-in">
+                    <img src="https://source.unsplash.com/random/800x600?romance" alt="Foto 3" class="gallery-img">
+                </div>
+                <div class="gallery-item" data-aos="zoom-in">
+                    <img src="https://source.unsplash.com/random/800x600?wedding" alt="Foto 4" class="gallery-img">
+                </div>
             </div>
         </section>
 
         <section id="mensagem" class="content-section">
-            <h2 class="section-title">Mensagem de Amor</h2>
-            <p class="love-message">Maria Clara, você é a luz da minha vida, o sol dos meus dias e a lua das minhas noites. Nosso amor é eterno, assim como as estrelas no céu.</p>
+            <h2 class="section-title" data-aos="fade-up">Mensagem de Amor</h2>
+            <p class="love-message" data-aos="fade-up">Maria Clara, você é a luz da minha vida, o sol dos meus dias e a lua das minhas noites. Nosso amor é eterno, assim como as estrelas no céu.</p>
             <div class="dove-decoration"></div>
         </section>
     </main>
@@ -102,8 +109,17 @@
         <p>&copy; 2024 Esdra & Maria Clara. Todos os direitos reservados.</p>
     </footer>
 
-    <button id="back-to-top" aria-label="Voltar ao topo">↑</button>
+    <button id="back-to-top" aria-label="Voltar ao topo"><i class="fas fa-chevron-up"></i></button>
 
+    <div class="music-player">
+        <audio id="background-music" loop>
+            <source src="https://example.com/somethin-bout-a-woman-thomas-rhett.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+        <button id="music-toggle"><i class="fas fa-music"></i></button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

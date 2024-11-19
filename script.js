@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', (event) => {
+    // Inicializar AOS
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
+
     // Cursor personalizado
     const cursor = document.querySelector('.cursor');
     const cursorFollower = document.querySelector('.cursor-follower');
@@ -61,26 +67,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         starsContainer.appendChild(star);
     }
 
-    // Efeito de fade-in para seções
-    const sections = document.querySelectorAll('section');
-    const fadeInSection = (entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-                observer.unobserve(entry.target);
-            }
-        });
-    };
-
-    const sectionObserver = new IntersectionObserver(fadeInSection, {
-        root: null,
-        threshold: 0.1
-    });
-
-    sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
-
     // Efeito de digitação para a mensagem de amor
     const loveMessage = document.querySelector('.love-message');
     const text = loveMessage.textContent;
@@ -105,15 +91,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     messageObserver.observe(document.querySelector('#mensagem'));
 
-    // Parallax effect for gallery images
-    const galleryImages = document.querySelectorAll('.gallery-img');
-    window.addEventListener('scroll', () => {
-        const scrollPosition = window.scrollY;
-        galleryImages.forEach((img, index) => {
-            img.style.transform = `translateY(${scrollPosition * 0.1 * (index + 1)}px)`;
-        });
-    });
-
     // Botão "Voltar ao topo"
     const backToTopButton = document.getElementById('back-to-top');
 
@@ -127,5 +104,33 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     backToTopButton.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Player de música
+    const musicToggle = document.getElementById('music-toggle');
+    const backgroundMusic = document.getElementById('background-music');
+    let isMusicPlaying = false;
+
+    musicToggle.addEventListener('click', () => {
+        if (isMusicPlaying) {
+            backgroundMusic.pause();
+            musicToggle.innerHTML = '<i class="fas fa-music"></i>';
+        } else {
+            backgroundMusic.play();
+            musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+        }
+        isMusicPlaying = !isMusicPlaying;
+    });
+
+    // Animação suave para elementos decorativos
+    const decorations = document.querySelectorAll('.heart-decoration, .flower-decoration, .rings-decoration, .dove-decoration');
+    decorations.forEach(decoration => {
+        decoration.style.transition = 'transform 0.3s ease-in-out';
+        decoration.addEventListener('mouseover', () => {
+            decoration.style.transform = 'scale(1.1)';
+        });
+        decoration.addEventListener('mouseout', () => {
+            decoration.style.transform = 'scale(1)';
+        });
     });
 });
