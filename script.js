@@ -1,5 +1,28 @@
-
 document.addEventListener('DOMContentLoaded', (event) => {
+    // Cursor personalizado
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        cursorFollower.style.left = e.clientX + 'px';
+        cursorFollower.style.top = e.clientY + 'px';
+    });
+
+    // Efeito hover nos links
+    const links = document.querySelectorAll('a');
+    links.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            cursor.style.transform = 'scale(1.5)';
+            cursorFollower.style.transform = 'scale(1.5)';
+        });
+        link.addEventListener('mouseleave', () => {
+            cursor.style.transform = 'scale(1)';
+            cursorFollower.style.transform = 'scale(1)';
+        });
+    });
+
     // Animação suave de rolagem para links internos
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -14,8 +37,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const moon = document.querySelector('.moon');
     window.addEventListener('scroll', () => {
         const scrollPosition = window.scrollY;
-        moon.style.transform = `translateY(${scrollPosition * 0.5}px)`;
+        moon.style.transform = `translateY(${scrollPosition * 0.5}px) rotate(${scrollPosition * 0.1}deg)`;
     });
+
+    // Criação de estrelas
+    const starsContainer = document.querySelector('.stars');
+    for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.width = `${Math.random() * 3}px`;
+        star.style.height = star.style.width;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${Math.random() * 2}s`;
+        starsContainer.appendChild(star);
+    }
 
     // Efeito de fade-in para seções
     const sections = document.querySelectorAll('section');
@@ -38,7 +74,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     // Efeito de digitação para a mensagem de amor
-    const loveMessage = document.querySelector('#mensagem p');
+    const loveMessage = document.querySelector('.love-message');
     const text = loveMessage.textContent;
     loveMessage.textContent = '';
     let i = 0;
@@ -60,4 +96,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }, { threshold: 0.5 });
 
     messageObserver.observe(document.querySelector('#mensagem'));
+
+    // Parallax effect for gallery images
+    const galleryImages = document.querySelectorAll('.gallery-img');
+    window.addEventListener('scroll', () => {
+        const scrollPosition = window.scrollY;
+        galleryImages.forEach((img, index) => {
+            img.style.transform = `translateY(${scrollPosition * 0.1 * (index + 1)}px)`;
+        });
+    });
 });
