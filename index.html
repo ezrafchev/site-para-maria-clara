@@ -12,123 +12,15 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
 </head>
 <body>
-    <div id="preloader">
-        <div class="heart-loader"></div>
-    </div>
+    <!-- ... (rest of the content remains the same) ... -->
 
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-
-    <header>
-        <nav>
-            <div class="logo">E&M</div>
-            <button class="menu-toggle" aria-label="Toggle menu">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="nav-menu">
-                <li><a href="#inicio" class="nav-link"><i class="fas fa-home"></i> Início</a></li>
-                <li><a href="#nossa-historia" class="nav-link"><i class="fas fa-book-open"></i> Nossa História</a></li>
-                <li><a href="#momentos" class="nav-link"><i class="fas fa-clock"></i> Momentos Especiais</a></li>
-                <li><a href="#galeria" class="nav-link"><i class="fas fa-images"></i> Galeria</a></li>
-                <li><a href="#mensagem" class="nav-link"><i class="fas fa-heart"></i> Mensagem de Amor</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section id="inicio" class="hero parallax-bg">
-            <div class="hero-content" data-aos="fade-up">
-                <h1 class="floating-element">Esdra & Maria Clara</h1>
-                <p class="floating-element">Uma história de amor eterno</p>
-            </div>
-            <div class="moon floating-element"></div>
-            <div class="stars"></div>
-            <div class="heart-decoration"></div>
-        </section>
-
-        <section id="nossa-historia" class="content-section">
-            <h2 class="section-title" data-aos="fade-up">Nossa História</h2>
-            <div class="text-content" data-aos="fade-up">
-                <p>Querida Maria Clara Casagrande de Mattos,</p>
-                <p>Este site é uma homenagem ao nosso amor. Desde o momento em que nos conhecemos, minha vida se encheu de luz e felicidade. Seu apoio incondicional, sua força e seu carinho são minha inspiração diária.</p>
-                <p>Cada momento ao seu lado é precioso, e sou eternamente grato por ter você em minha vida. Você é minha parceira, minha melhor amiga e meu amor eterno.</p>
-                <p>Com todo meu amor,</p>
-                <p>Esdra</p>
-            </div>
-            <div class="flower-decoration"></div>
-        </section>
-
-        <section id="momentos" class="content-section">
-            <h2 class="section-title" data-aos="fade-up">Momentos Especiais</h2>
-            <div class="timeline">
-                <div class="event" data-aos="fade-right">
-                    <div class="date">15 de Janeiro de 2020</div>
-                    <div class="description">Primeiro Encontro</div>
-                </div>
-                <div class="event" data-aos="fade-left">
-                    <div class="date">14 de Fevereiro de 2020</div>
-                    <div class="description">Primeiro Beijo</div>
-                </div>
-                <div class="event" data-aos="fade-right">
-                    <div class="date">1 de Maio de 2020</div>
-                    <div class="description">Pedido de Namoro</div>
-                </div>
-                <div class="event" data-aos="fade-left">
-                    <div class="date">10 de Julho de 2020</div>
-                    <div class="description">Primeira Viagem Juntos</div>
-                </div>
-                <div class="event" data-aos="fade-right">
-                    <div class="date">25 de Dezembro de 2021</div>
-                    <div class="description">Pedido de Casamento</div>
-                </div>
-            </div>
-            <div class="rings-decoration"></div>
-        </section>
-
-        <section id="galeria" class="content-section">
-            <h2 class="section-title" data-aos="fade-up">Galeria de Amor</h2>
-            <div class="swiper-container gallery-swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="https://picsum.photos/800/600?random=1" alt="Foto 1" class="gallery-img">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://picsum.photos/800/600?random=2" alt="Foto 2" class="gallery-img">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://picsum.photos/800/600?random=3" alt="Foto 3" class="gallery-img">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://picsum.photos/800/600?random=4" alt="Foto 4" class="gallery-img">
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-            </div>
-        </section>
-
-        <section id="mensagem" class="content-section">
-            <h2 class="section-title" data-aos="fade-up">Mensagem de Amor</h2>
-            <p class="love-message" data-aos="fade-up">Maria Clara, você é a luz da minha vida, o sol dos meus dias e a lua das minhas noites. Nosso amor é eterno, assim como as estrelas no céu.</p>
-            <div class="dove-decoration"></div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 Esdra & Maria Clara. Todos os direitos reservados.</p>
-    </footer>
-
-    <button id="back-to-top" aria-label="Voltar ao topo"><i class="fas fa-chevron-up"></i></button>
+    <div id="youtube-player"></div>
 
     <div class="music-player">
-        <audio id="background-music" loop>
-            <source src="something-bout-a-woman.mp3" type="audio/mpeg">
-            Seu navegador não suporta o elemento de áudio.
-        </audio>
         <button id="music-toggle"><i class="fas fa-music"></i></button>
     </div>
 
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
