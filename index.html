@@ -7,10 +7,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
 </head>
 <body>
+    <div id="preloader">
+        <div class="heart-loader"></div>
+    </div>
+
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
@@ -82,19 +87,24 @@
 
         <section id="galeria" class="content-section">
             <h2 class="section-title" data-aos="fade-up">Galeria de Amor</h2>
-            <div class="gallery">
-                <div class="gallery-item" data-aos="zoom-in">
-                    <img src="https://source.unsplash.com/random/800x600?couple" alt="Foto 1" class="gallery-img">
+            <div class="swiper-container gallery-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="https://source.unsplash.com/random/800x600?couple" alt="Foto 1" class="gallery-img">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://source.unsplash.com/random/800x600?love" alt="Foto 2" class="gallery-img">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://source.unsplash.com/random/800x600?romance" alt="Foto 3" class="gallery-img">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://source.unsplash.com/random/800x600?wedding" alt="Foto 4" class="gallery-img">
+                    </div>
                 </div>
-                <div class="gallery-item" data-aos="zoom-in">
-                    <img src="https://source.unsplash.com/random/800x600?love" alt="Foto 2" class="gallery-img">
-                </div>
-                <div class="gallery-item" data-aos="zoom-in">
-                    <img src="https://source.unsplash.com/random/800x600?romance" alt="Foto 3" class="gallery-img">
-                </div>
-                <div class="gallery-item" data-aos="zoom-in">
-                    <img src="https://source.unsplash.com/random/800x600?wedding" alt="Foto 4" class="gallery-img">
-                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </section>
 
@@ -120,6 +130,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
