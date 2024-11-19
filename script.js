@@ -153,3 +153,49 @@ document.addEventListener('DOMContentLoaded', (event) => {
         },
     });
 });
+            playMusic();
+        }
+    }
+
+    function updateMusicToggleIcon() {
+        musicToggle.innerHTML = isMusicPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-music"></i>';
+    }
+
+    musicToggle.addEventListener('click', toggleMusic);
+
+    // Tenta iniciar a música automaticamente
+    playMusic().catch(() => {
+        console.log('Autoplay prevented. User interaction required.');
+    });
+
+    // Adiciona um evento de interação do usuário para iniciar a música
+    document.body.addEventListener('click', () => {
+        if (!isMusicPlaying) {
+            playMusic().catch(() => {
+                console.log('Failed to play music after user interaction.');
+            });
+        }
+    }, { once: true });
+
+    // Inicializar Swiper para a galeria
+    const swiper = new Swiper('.gallery-swiper', {
+        effect: 'coverflow',
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: 'auto',
+        coverflowEffect: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+});
