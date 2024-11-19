@@ -117,6 +117,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const backgroundMusic = document.getElementById('background-music');
     let isMusicPlaying = false;
 
+    // Tenta iniciar a música automaticamente
+    backgroundMusic.play().then(() => {
+        isMusicPlaying = true;
+        musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+    }).catch((error) => {
+        console.log("Reprodução automática bloqueada pelo navegador:", error);
+    });
+
     musicToggle.addEventListener('click', () => {
         if (isMusicPlaying) {
             backgroundMusic.pause();
