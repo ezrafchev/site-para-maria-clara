@@ -1,67 +1,3 @@
-let player;
-let isMusicPlaying = false;
-
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('youtube-player', {
-        height: '0',
-        width: '0',
-        videoId: '65aNPjAwGnw',
-        playerVars: {
-            'autoplay': 0,
-            'controls': 0,
-            'showinfo': 0,
-            'modestbranding': 1,
-            'loop': 1,
-            'fs': 0,
-            'cc_load_policy': 0,
-            'iv_load_policy': 3
-        },
-        events: {
-            'onReady': onPlayerReady,
-        }
-    });
-}
-
-function onPlayerReady(event) {
-    const musicToggle = document.getElementById('music-toggle');
-    musicToggle.addEventListener('click', toggleMusic);
-    
-    // Tenta iniciar a música automaticamente
-    playMusic();
-
-    // Adiciona um evento de interação do usuário para iniciar a música
-    document.body.addEventListener('click', () => {
-        if (!isMusicPlaying) {
-            playMusic();
-        }
-    }, { once: true });
-}
-
-function playMusic() {
-    player.playVideo();
-    isMusicPlaying = true;
-    updateMusicToggleIcon();
-}
-
-function pauseMusic() {
-    player.pauseVideo();
-    isMusicPlaying = false;
-    updateMusicToggleIcon();
-}
-
-function toggleMusic() {
-    if (isMusicPlaying) {
-        pauseMusic();
-    } else {
-        playMusic();
-    }
-}
-
-function updateMusicToggleIcon() {
-    const musicToggle = document.getElementById('music-toggle');
-    musicToggle.innerHTML = isMusicPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-music"></i>';
-}
-
 document.addEventListener('DOMContentLoaded', (event) => {
     // Inicializar AOS
     AOS.init({
@@ -153,4 +89,67 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     const countdownInterval = setInterval(updateCountdown, 1000);
     updateCountdown();
+
+    // Player de música
+    const backgroundMusic = document.getElementById('background-music');
+    const musicToggle = document.getElementById('music-toggle');
+    let isMusicPlaying = false;
+
+    function playMusic() {
+        backgroundMusic.play();
+        isMusicPlaying = true;
+        updateMusicToggleIcon();
+    }
+
+    function pauseMusic() {
+        backgroundMusic.pause();
+        isMusicPlaying = false;
+        updateMusicToggleIcon();
+    }
+
+    function toggleMusic() {
+        if (isMusicPlaying) {
+            pauseMusic();
+        } else {
+            playMusic();
+        }
+    }
+
+    function updateMusicToggleIcon() {
+        musicToggle.innerHTML = isMusicPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-music"></i>';
+    }
+
+    musicToggle.addEventListener('click', toggleMusic);
+
+    // Tenta iniciar a música automaticamente
+    playMusic();
+
+    // Adiciona um evento de interação do usuário para iniciar a música
+    document.body.addEventListener('click', () => {
+        if (!isMusicPlaying) {
+            playMusic();
+        }
+    }, { once: true });
+
+    // Inicializar Swiper para a galeria
+    const swiper = new Swiper('.gallery-swiper', {
+        effect: 'coverflow',
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: 'auto',
+        coverflowEffect: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
 });
