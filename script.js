@@ -5,6 +5,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         once: true
     });
 
+    // Preloader
+    window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader');
+        preloader.style.display = 'none';
+    });
+
     // Cursor personalizado
     const cursor = document.querySelector('.cursor');
     const cursorFollower = document.querySelector('.cursor-follower');
@@ -17,7 +23,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     // Efeito hover nos links
-    const links = document.querySelectorAll('a');
+    const links = document.querySelectorAll('a, button');
     links.forEach(link => {
         link.addEventListener('mouseenter', () => {
             cursor.style.transform = 'scale(1.5)';
@@ -120,6 +126,28 @@ document.addEventListener('DOMContentLoaded', (event) => {
             musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
         }
         isMusicPlaying = !isMusicPlaying;
+    });
+
+    // Inicializar Swiper para a galeria
+    const swiper = new Swiper('.gallery-swiper', {
+        effect: 'coverflow',
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: 'auto',
+        coverflowEffect: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
     });
 
     // Animação suave para elementos decorativos
