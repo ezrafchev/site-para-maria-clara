@@ -43,6 +43,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
         navMenu.classList.toggle('active');
     });
 
+    // Animação suave de rolagem para links internos
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
     // Animação da lua
     const moon = document.querySelector('.moon');
     window.addEventListener('scroll', () => {
@@ -63,63 +73,59 @@ document.addEventListener('DOMContentLoaded', (event) => {
         starsContainer.appendChild(star);
     }
 
-    // Contagem regressiva
-    const countdownDate = new Date("2024-12-31T00:00:00").getTime();
-    const countdown = document.getElementById('countdown');
+    // Efeito de digitação para a mensagem de amor
+    const loveMessage = document.querySelector('.love-message');
+    const text = loveMessage.textContent;
+    loveMessage.textContent = '';
+    let i = 0;
 
-    function updateCountdown() {
-        const now = new Date().getTime();
-        const distance = countdownDate - now;
-
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        document.getElementById('days').textContent = days.toString().padStart(2, '0');
-        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-
-        if (distance < 0) {
-            clearInterval(countdownInterval);
-            countdown.innerHTML = "O grande dia chegou!";
+    function typeWriter() {
+        if (i < text.length) {
+            loveMessage.textContent += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 50);
         }
     }
 
-    const countdownInterval = setInterval(updateCountdown, 1000);
-    updateCountdown();
+    // Inicia o efeito de digitação quando a seção de mensagem estiver visível
+    const messageObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            typeWriter();
+            messageObserver.unobserve(entries[0].target);
+        }
+    }, { threshold: 0.5 });
+
+    messageObserver.observe(document.querySelector('#mensagem'));
+
+    // Botão "Voltar ao topo"
+    const backToTopButton = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopButton.style.display = 'block';
+        } else {
+            backToTopButton.style.display = 'none';
+        }
+    });
+
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
     // Player de música
-    const backgroundMusic = document.getElementById('background-music');
     const musicToggle = document.getElementById('music-toggle');
+    const backgroundMusic = document.getElementById('background-music');
     let isMusicPlaying = false;
 
+    // Função para tocar música
     function playMusic() {
-        backgroundMusic.play();
-        isMusicPlaying = true;
-        updateMusicToggleIcon();
+        backgroundMusic.play().then(() => {
+            isMusicPlaying = true;
+            musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+        }).catch((error) => {
+            console.log("Erro ao tocar música:", error);
+        });
     }
-
-    function pauseMusic() {
-        backgroundMusic.pause();
-        isMusicPlaying = false;
-        updateMusicToggleIcon();
-    }
-
-    function toggleMusic() {
-        if (isMusicPlaying) {
-            pauseMusic();
-        } else {
-            playMusic();
-        }
-    }
-
-    function updateMusicToggleIcon() {
-        musicToggle.innerHTML = isMusicPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-music"></i>';
-    }
-
-    musicToggle.addEventListener('click', toggleMusic);
 
     // Tenta iniciar a música automaticamente
     playMusic();
@@ -131,51 +137,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }, { once: true });
 
-    // Inicializar Swiper para a galeria
-    const swiper = new Swiper('.gallery-swiper', {
-        effect: 'coverflow',
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: 'auto',
-        coverflowEffect: {
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
-});
+    musicToggle.addEventListener('click', () => {
+        if (isMusicPlaying) {
+            backgroundMusic.pause();
+            musicToggle.innerHTML = '<i class="fas fa-music"></i>';
+        } else {
             playMusic();
         }
-    }
-
-    function updateMusicToggleIcon() {
-        musicToggle.innerHTML = isMusicPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-music"></i>';
-    }
-
-    musicToggle.addEventListener('click', toggleMusic);
-
-    // Tenta iniciar a música automaticamente
-    playMusic().catch(() => {
-        console.log('Autoplay prevented. User interaction required.');
+        isMusicPlaying = !isMusicPlaying;
     });
-
-    // Adiciona um evento de interação do usuário para iniciar a música
-    document.body.addEventListener('click', () => {
-        if (!isMusicPlaying) {
-            playMusic().catch(() => {
-                console.log('Failed to play music after user interaction.');
-            });
-        }
-    }, { once: true });
 
     // Inicializar Swiper para a galeria
     const swiper = new Swiper('.gallery-swiper', {
@@ -197,5 +167,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
+    });
+
+    // Animação suave para elementos decorativos
+    const decorations = document.querySelectorAll('.heart-decoration, .flower-decoration, .rings-decoration, .dove-decoration');
+    decorations.forEach(decoration => {
+        decoration.style.transition = 'transform 0.3s ease-in-out';
+        decoration.addEventListener('mouseover', () => {
+            decoration.style.transform = 'scale(1.1)';
+        });
+        decoration.addEventListener('mouseout', () => {
+            decoration.style.transform = 'scale(1)';
+        });
     });
 });
