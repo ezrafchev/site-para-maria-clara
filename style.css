@@ -3,8 +3,8 @@
     --secondary-color: #4a0e2e;
     --text-color: #333;
     --background-color: #f0f8ff;
-    --font-title: 'Pacifico', cursive;
-    --font-body: 'Montserrat', sans-serif;
+    --font-title: 'Dancing Script', 'Brush Script MT', cursive;
+    --font-body: 'Montserrat', 'Arial', 'Helvetica Neue', sans-serif;
 }
 
 * {
@@ -161,7 +161,7 @@ main {
 }
 
 .hero {
-    background-image: url('https://source.unsplash.com/random/1600x900/?romantic');
+    background: linear-gradient(135deg, #89CFF0 0%, #FFB6C1 50%, #DDA0DD 100%);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
