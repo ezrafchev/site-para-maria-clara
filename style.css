@@ -3,8 +3,8 @@
     --secondary-color: #4a0e2e;
     --text-color: #333;
     --background-color: #f0f8ff;
-    --font-title: 'Pacifico', cursive;
-    --font-body: 'Montserrat', sans-serif;
+    --font-title: 'Dancing Script', 'Brush Script MT', cursive;
+    --font-body: 'Montserrat', 'Arial', 'Helvetica Neue', sans-serif;
 }
 
 * {
