@@ -4,14 +4,27 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:  # Allow manual triggering for immediate deployment
+  pull_request:
+    branches:
+      - main
+    types: [closed]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # Only run on main branch pushes, manual triggers, or merged PRs
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch' || (github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main')
     steps:
-    - uses: actions/checkout@v2
-    - name: Deploy
+    - uses: actions/checkout@v4  # Updated to latest version
+      with:
+        ref: main  # Always deploy from main branch
+    
+    - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: .
+        force_orphan: true  # Faster deployment by not preserving history
+        enable_jekyll: false  # Disable Jekyll processing for faster deployment
+        cname: # Add custom domain if needed
