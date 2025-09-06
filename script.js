@@ -1,38 +1,44 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    // Inicializar AOS com configurações premium
+    // Apple-style AOS initialization with refined settings
     AOS.init({
-        duration: 1200,
+        duration: 800,
         once: true,
-        offset: 100,
-        easing: 'ease-out-cubic'
+        offset: 50,
+        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches
     });
 
-    // Preloader premium
+    // Apple-style preloader with smooth fade
     window.addEventListener('load', () => {
         const preloader = document.getElementById('preloader');
         setTimeout(() => {
+            preloader.style.transition = 'opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
             preloader.style.opacity = '0';
             setTimeout(() => {
                 preloader.style.display = 'none';
-            }, 500);
-        }, 1500); // Show loader for 1.5 seconds
+            }, 600);
+        }, 1200);
     });
 
-    // Enhanced cursor
+    // Enhanced cursor with Apple-style precision
     const cursor = document.querySelector('.cursor');
     const cursorFollower = document.querySelector('.cursor-follower');
     let mouseX = 0, mouseY = 0;
     let cursorX = 0, cursorY = 0;
 
-    // Smooth cursor following
+    // Smoother cursor following with Apple-style easing
     function updateCursor() {
-        cursorX += (mouseX - cursorX) * 0.15;
-        cursorY += (mouseY - cursorY) * 0.15;
+        cursorX += (mouseX - cursorX) * 0.1;
+        cursorY += (mouseY - cursorY) * 0.1;
         
-        cursor.style.left = cursorX + 'px';
-        cursor.style.top = cursorY + 'px';
-        cursorFollower.style.left = cursorX + 'px';
-        cursorFollower.style.top = cursorY + 'px';
+        if (cursor) {
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+        }
+        if (cursorFollower) {
+            cursorFollower.style.left = cursorX + 'px';
+            cursorFollower.style.top = cursorY + 'px';
+        }
         
         requestAnimationFrame(updateCursor);
     }
@@ -43,65 +49,99 @@ document.addEventListener('DOMContentLoaded', (event) => {
         mouseY = e.clientY;
     });
 
-    // Enhanced hover effects
-    const interactiveElements = document.querySelectorAll('a, button, .swiper-slide, .event');
+    // Apple-style hover effects with refined transitions
+    const interactiveElements = document.querySelectorAll('a, button, .swiper-slide, .event, .promise-card');
     interactiveElements.forEach(element => {
         element.addEventListener('mouseenter', () => {
-            cursor.style.transform = 'scale(2)';
-            cursorFollower.style.transform = 'scale(2)';
-            cursor.style.borderColor = 'var(--secondary-color)';
+            if (cursor) {
+                cursor.style.transform = 'scale(1.5)';
+                cursor.style.borderColor = 'var(--primary-color)';
+                cursor.style.opacity = '0.8';
+            }
+            if (cursorFollower) {
+                cursorFollower.style.transform = 'scale(1.8)';
+                cursorFollower.style.opacity = '0.6';
+            }
         });
         element.addEventListener('mouseleave', () => {
-            cursor.style.transform = 'scale(1)';
-            cursorFollower.style.transform = 'scale(1)';
-            cursor.style.borderColor = 'var(--primary-color)';
+            if (cursor) {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.borderColor = 'var(--primary-color)';
+                cursor.style.opacity = '1';
+            }
+            if (cursorFollower) {
+                cursorFollower.style.transform = 'scale(1)';
+                cursorFollower.style.opacity = '1';
+            }
         });
     });
 
-    // Enhanced mobile menu
+    // Apple-style mobile menu with smooth animations
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
 
-    menuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        menuToggle.innerHTML = navMenu.classList.contains('active') 
-            ? '<i class="fas fa-times"></i>' 
-            : '<i class="fas fa-bars"></i>';
-    });
-
-    // Close menu when clicking on a link
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const isActive = navMenu.classList.contains('active');
+            
+            // Apple-style icon transition
+            menuToggle.innerHTML = isActive 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+            
+            // Add smooth scale animation
+            menuToggle.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                menuToggle.style.transform = 'scale(1)';
+            }, 150);
         });
-    });
 
-    // Enhanced smooth scrolling
+        // Close menu when clicking on a link with smooth transition
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+    }
+
+    // Apple-style smooth scrolling with refined easing
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const targetPosition = target.offsetTop - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
             }
         });
     });
 
-    // Header scroll effect
+    // Apple-style header scroll effect with refined transitions
     const header = document.querySelector('header');
+    let lastScrollY = window.scrollY;
+    
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 100) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
+        const currentScrollY = window.scrollY;
+        
+        if (header) {
+            if (currentScrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         }
-    });
+        
+        lastScrollY = currentScrollY;
+    }, { passive: true });
 
-    // Enhanced parallax effects
+    // Enhanced parallax effects with Apple-style smoothness
     const moon = document.querySelector('.moon');
     const hero = document.querySelector('.hero');
     
@@ -109,24 +149,27 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const scrollPosition = window.scrollY;
         const scrollPercent = scrollPosition / window.innerHeight;
         
-        // Moon parallax
-        if (moon) {
-            moon.style.transform = `translateY(${scrollPosition * 0.3}px) rotate(${scrollPosition * 0.05}deg)`;
+        // Refined moon parallax
+        if (moon && scrollPosition < window.innerHeight) {
+            const moonTransform = scrollPosition * 0.2;
+            const moonRotation = scrollPosition * 0.02;
+            moon.style.transform = `translateY(${moonTransform}px) rotate(${moonRotation}deg)`;
         }
         
-        // Hero parallax
+        // Subtle hero parallax
         if (hero && scrollPosition < window.innerHeight) {
-            hero.style.transform = `translateY(${scrollPosition * 0.5}px)`;
+            const heroTransform = scrollPosition * 0.3;
+            hero.style.transform = `translateY(${heroTransform}px)`;
         }
-    });
+    }, { passive: true });
 
-    // Enhanced stars creation
+    // Apple-style enhanced stars creation
     const starsContainer = document.querySelector('.stars');
     if (starsContainer) {
-        for (let i = 0; i < 150; i++) {
+        for (let i = 0; i < 100; i++) {
             const star = document.createElement('div');
             star.classList.add('star');
-            const size = Math.random() * 4 + 1;
+            const size = Math.random() * 3 + 1;
             star.style.width = `${size}px`;
             star.style.height = `${size}px`;
             star.style.left = `${Math.random() * 100}%`;
@@ -137,7 +180,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
-    // Enhanced typing effect for love message
+    // Apple-style refined typing effect for love message
     const loveMessage = document.querySelector('.love-message');
     if (loveMessage) {
         const text = loveMessage.textContent;
@@ -148,51 +191,71 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (i < text.length) {
                 loveMessage.textContent += text.charAt(i);
                 i++;
-                setTimeout(typeWriter, 30); // Faster typing
+                setTimeout(typeWriter, 40); // Smoother typing speed
             }
         }
 
         // Start typing when message section is visible
         const messageObserver = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting) {
-                setTimeout(typeWriter, 500); // Delay start
+                setTimeout(typeWriter, 800); // Refined delay
                 messageObserver.unobserve(entries[0].target);
             }
-        }, { threshold: 0.5 });
+        }, { 
+            threshold: 0.3,
+            rootMargin: '0px 0px -50px 0px'
+        });
 
-        messageObserver.observe(document.querySelector('#mensagem'));
+        const messageSection = document.querySelector('#mensagem');
+        if (messageSection) {
+            messageObserver.observe(messageSection);
+        }
     }
 
-    // Enhanced back to top button
+    // Apple-style back to top button with refined behavior
     const backToTopButton = document.getElementById('back-to-top');
     if (backToTopButton) {
+        let scrollTimeout;
+        
         window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.add('visible');
-            } else {
-                backToTopButton.classList.remove('visible');
-            }
-        });
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                if (window.pageYOffset > 400) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            }, 10);
+        }, { passive: true });
 
         backToTopButton.addEventListener('click', () => {
-            window.scrollTo({ 
-                top: 0, 
-                behavior: 'smooth' 
-            });
+            // Apple-style smooth scroll to top
+            const scrollToTop = () => {
+                const currentPosition = window.pageYOffset;
+                if (currentPosition > 0) {
+                    window.scrollTo(0, currentPosition - currentPosition / 8);
+                    requestAnimationFrame(scrollToTop);
+                }
+            };
+            scrollToTop();
         });
     }
 
-    // Enhanced music player
+    // Apple-style enhanced music player
     const musicToggle = document.getElementById('music-toggle');
     const backgroundMusic = document.getElementById('background-music');
     let isMusicPlaying = false;
 
     if (musicToggle && backgroundMusic) {
+        // Set volume for better user experience
+        backgroundMusic.volume = 0.3;
+        
         function playMusic() {
             backgroundMusic.play().then(() => {
                 isMusicPlaying = true;
                 musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
                 musicToggle.classList.add('playing');
+                musicToggle.setAttribute('aria-label', 'Pausar música');
             }).catch((error) => {
                 console.log("Music autoplay blocked:", error);
             });
@@ -203,10 +266,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
             isMusicPlaying = false;
             musicToggle.innerHTML = '<i class="fas fa-music"></i>';
             musicToggle.classList.remove('playing');
+            musicToggle.setAttribute('aria-label', 'Tocar música');
         }
 
-        // Handle music toggle
+        // Handle music toggle with Apple-style feedback
         musicToggle.addEventListener('click', () => {
+            // Add tactile feedback
+            musicToggle.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                musicToggle.style.transform = 'scale(1)';
+            }, 150);
+            
             if (isMusicPlaying) {
                 pauseMusic();
             } else {
@@ -216,13 +286,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         // Try to play music on first user interaction
         document.body.addEventListener('click', () => {
-            if (!isMusicPlaying) {
+            if (!isMusicPlaying && backgroundMusic.paused) {
                 playMusic();
             }
         }, { once: true });
     }
 
-    // Enhanced Swiper for gallery
+    // Apple-style enhanced Swiper for gallery
     if (typeof Swiper !== 'undefined') {
         const swiper = new Swiper('.gallery-swiper', {
             effect: 'coverflow',
@@ -230,15 +300,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
             centeredSlides: true,
             slidesPerView: 'auto',
             loop: true,
+            speed: 600, // Apple-style smooth transitions
             autoplay: {
-                delay: 3000,
+                delay: 4000,
                 disableOnInteraction: false,
+                pauseOnMouseEnter: true,
             },
             coverflowEffect: {
-                rotate: 30,
+                rotate: 20,
                 stretch: 0,
-                depth: 100,
-                modifier: 1.5,
+                depth: 80,
+                modifier: 2,
                 slideShadows: true,
             },
             pagination: {
@@ -253,38 +325,52 @@ document.addEventListener('DOMContentLoaded', (event) => {
             breakpoints: {
                 640: {
                     slidesPerView: 1,
+                    coverflowEffect: {
+                        rotate: 30,
+                        depth: 100,
+                    }
                 },
                 768: {
                     slidesPerView: 2,
+                    coverflowEffect: {
+                        rotate: 25,
+                        depth: 90,
+                    }
                 },
                 1024: {
                     slidesPerView: 3,
+                    coverflowEffect: {
+                        rotate: 20,
+                        depth: 80,
+                    }
                 },
             },
         });
     }
 
-    // Add floating hearts animation
+    // Apple-style refined floating hearts animation
     function createFloatingHeart() {
         const heart = document.createElement('div');
         heart.innerHTML = '💖';
         heart.style.position = 'fixed';
         heart.style.left = Math.random() * 100 + 'vw';
         heart.style.top = '100vh';
-        heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+        heart.style.fontSize = Math.random() * 15 + 10 + 'px';
         heart.style.pointerEvents = 'none';
         heart.style.zIndex = '1';
-        heart.style.animation = 'floatUp 6s linear infinite';
-        heart.style.opacity = Math.random() * 0.5 + 0.3;
+        heart.style.animation = 'floatUp 8s ease-out infinite';
+        heart.style.opacity = Math.random() * 0.4 + 0.2;
         
         document.body.appendChild(heart);
         
         setTimeout(() => {
-            heart.remove();
-        }, 6000);
+            if (heart.parentNode) {
+                heart.remove();
+            }
+        }, 8000);
     }
 
-    // Add floating hearts CSS animation
+    // Apple-style floating hearts CSS animation
     const style = document.createElement('style');
     style.textContent = `
         @keyframes floatUp {
@@ -293,23 +379,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 opacity: 1;
             }
             to {
-                transform: translateY(-100vh) rotate(360deg);
+                transform: translateY(-110vh) rotate(180deg);
                 opacity: 0;
             }
         }
     `;
     document.head.appendChild(style);
 
-    // Create floating hearts periodically
-    setInterval(createFloatingHeart, 3000);
+    // Create floating hearts with refined frequency
+    setInterval(createFloatingHeart, 4000);
 
-    // Enhanced timeline animations
+    // Apple-style timeline animations with staggered delays
     const timelineEvents = document.querySelectorAll('.event');
     timelineEvents.forEach((event, index) => {
-        event.style.animationDelay = `${index * 0.2}s`;
+        event.style.animationDelay = `${index * 0.15}s`;
     });
 
-    // Add magical sparkle effect on hover for special elements
+    // Apple-style magical sparkle effect with refined behavior
     function createSparkle(x, y) {
         const sparkle = document.createElement('div');
         sparkle.innerHTML = '✨';
@@ -317,16 +403,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
         sparkle.style.left = x + 'px';
         sparkle.style.top = y + 'px';
         sparkle.style.pointerEvents = 'none';
-        sparkle.style.fontSize = '20px';
+        sparkle.style.fontSize = '16px';
         sparkle.style.zIndex = '9999';
-        sparkle.style.animation = 'sparkle 1s ease-out forwards';
+        sparkle.style.animation = 'sparkle 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
         
         document.body.appendChild(sparkle);
         
-        setTimeout(() => sparkle.remove(), 1000);
+        setTimeout(() => {
+            if (sparkle.parentNode) {
+                sparkle.remove();
+            }
+        }, 1200);
     }
 
-    // Add sparkle animation CSS
+    // Apple-style sparkle animation CSS
     const sparkleStyle = document.createElement('style');
     sparkleStyle.textContent = `
         @keyframes sparkle {
@@ -334,28 +424,56 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 transform: scale(0) rotate(0deg);
                 opacity: 1;
             }
+            50% {
+                transform: scale(1.2) rotate(90deg);
+                opacity: 0.8;
+            }
             100% {
-                transform: scale(1.5) rotate(180deg);
+                transform: scale(1.8) rotate(180deg);
                 opacity: 0;
             }
         }
     `;
     document.head.appendChild(sparkleStyle);
 
-    // Add sparkle effect to love message
-    const sparkleElements = document.querySelectorAll('.love-message, .section-title');
+    // Add refined sparkle effect to special elements
+    const sparkleElements = document.querySelectorAll('.love-message, .section-title, .promise-card');
     sparkleElements.forEach(element => {
         element.addEventListener('mouseenter', (e) => {
-            for (let i = 0; i < 5; i++) {
+            // Create fewer, more elegant sparkles
+            for (let i = 0; i < 3; i++) {
                 setTimeout(() => {
                     const rect = element.getBoundingClientRect();
                     const x = rect.left + Math.random() * rect.width;
                     const y = rect.top + Math.random() * rect.height;
                     createSparkle(x, y);
-                }, i * 100);
+                }, i * 150);
             }
         });
     });
 
-    console.log('💖 Premium love site loaded with enhanced features! 💖');
+    // Apple-style refined scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observe content sections for refined animations
+    document.querySelectorAll('.content-section, .promise-card').forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(30px)';
+        section.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        observer.observe(section);
+    });
+
+    console.log('✨ Apple-style premium love site loaded with enhanced features! ✨');
 });
