@@ -182,12 +182,42 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     }
 
-    // Enhanced music player
+    // Enhanced music player with playlist
     const musicToggle = document.getElementById('music-toggle');
     const backgroundMusic = document.getElementById('background-music');
+    const prevButton = document.getElementById('prev-song');
+    const nextButton = document.getElementById('next-song');
+    const volumeSlider = document.getElementById('volume-slider');
+    const songTitle = document.getElementById('song-title');
     let isMusicPlaying = false;
+    let currentSongIndex = 0;
+
+    // Romantic playlist (using web-based demo audio for functionality)
+    const playlist = [
+        {
+            title: "Música Romântica 1",
+            src: "data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJmMmQQAQgpGCkEKRwpHCkYKQgpBCj4KQwpGCkYKQgpBCj4"
+        },
+        {
+            title: "Serenata de Amor",
+            src: "data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJmMmQQAQgpGCkEKRwpHCkYKQgpBCj4KQwpGCkYKQgpBCj4"
+        },
+        {
+            title: "Melodia do Coração",
+            src: "data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJmMmQQAQgpGCkEKRwpHCkYKQgpBCj4KQwpGCkYKQgpBCj4"
+        }
+    ];
 
     if (musicToggle && backgroundMusic) {
+        // Set initial volume
+        backgroundMusic.volume = 0.7;
+
+        function loadSong(index) {
+            const song = playlist[index];
+            backgroundMusic.src = song.src;
+            songTitle.textContent = song.title;
+        }
+
         function playMusic() {
             backgroundMusic.play().then(() => {
                 isMusicPlaying = true;
@@ -195,6 +225,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 musicToggle.classList.add('playing');
             }).catch((error) => {
                 console.log("Music autoplay blocked:", error);
+                // Show user-friendly message
+                showMusicMessage("Clique para tocar música 🎵");
             });
         }
 
@@ -205,7 +237,45 @@ document.addEventListener('DOMContentLoaded', (event) => {
             musicToggle.classList.remove('playing');
         }
 
-        // Handle music toggle
+        function nextSong() {
+            currentSongIndex = (currentSongIndex + 1) % playlist.length;
+            loadSong(currentSongIndex);
+            if (isMusicPlaying) {
+                playMusic();
+            }
+        }
+
+        function prevSong() {
+            currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+            loadSong(currentSongIndex);
+            if (isMusicPlaying) {
+                playMusic();
+            }
+        }
+
+        function showMusicMessage(message) {
+            const musicMessage = document.createElement('div');
+            musicMessage.className = 'music-message';
+            musicMessage.textContent = message;
+            musicMessage.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--love-gradient);
+                color: white;
+                padding: 10px 20px;
+                border-radius: 25px;
+                z-index: 10000;
+                animation: slideInRight 0.5s ease-out;
+            `;
+            document.body.appendChild(musicMessage);
+            setTimeout(() => musicMessage.remove(), 3000);
+        }
+
+        // Load initial song
+        loadSong(currentSongIndex);
+
+        // Event listeners
         musicToggle.addEventListener('click', () => {
             if (isMusicPlaying) {
                 pauseMusic();
@@ -213,6 +283,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 playMusic();
             }
         });
+
+        if (nextButton) {
+            nextButton.addEventListener('click', nextSong);
+        }
+
+        if (prevButton) {
+            prevButton.addEventListener('click', prevSong);
+        }
+
+        if (volumeSlider) {
+            volumeSlider.addEventListener('input', (e) => {
+                backgroundMusic.volume = e.target.value / 100;
+            });
+        }
+
+        // Auto-play next song when current ends
+        backgroundMusic.addEventListener('ended', nextSong);
 
         // Try to play music on first user interaction
         document.body.addEventListener('click', () => {
@@ -356,6 +443,483 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         });
     });
+
+    // Love Counter - Days Together
+    function initLoveCounter() {
+        const startDate = new Date('2015-06-24'); // June 24, 2015
+        const daysElement = document.getElementById('days-together');
+        const hoursElement = document.getElementById('hours-together');
+        const minutesElement = document.getElementById('minutes-together');
+
+        function updateCounter() {
+            const now = new Date();
+            const diffTime = Math.abs(now - startDate);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const diffMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+
+            if (daysElement) {
+                animateCounterTo(daysElement, diffDays);
+            }
+            if (hoursElement) {
+                animateCounterTo(hoursElement, diffHours);
+            }
+            if (minutesElement) {
+                animateCounterTo(minutesElement, diffMinutes);
+            }
+        }
+
+        function animateCounterTo(element, targetValue) {
+            const currentValue = parseInt(element.textContent) || 0;
+            const increment = targetValue > currentValue ? 1 : -1;
+            const duration = Math.abs(targetValue - currentValue) * 20; // Animation speed
+
+            if (currentValue !== targetValue) {
+                const step = () => {
+                    const newValue = parseInt(element.textContent) + increment;
+                    element.textContent = newValue;
+                    if (newValue !== targetValue) {
+                        setTimeout(step, Math.max(1, duration / Math.abs(targetValue - currentValue)));
+                    }
+                };
+                setTimeout(step, 50);
+            }
+        }
+
+        // Update counter immediately and then every minute
+        updateCounter();
+        setInterval(updateCounter, 60000);
+    }
+
+    // Initialize love counter when section is visible
+    const counterObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            initLoveCounter();
+            counterObserver.unobserve(entries[0].target);
+        }
+    }, { threshold: 0.5 });
+
+    const counterSection = document.querySelector('.love-counter');
+    if (counterSection) {
+        counterObserver.observe(counterSection);
+    }
+
+    // Romantic Quote Generator
+    const romanticQuotes = [
+        "Você é minha pessoa favorita em todos os universos possíveis.",
+        "Cada batida do meu coração sussurra seu nome.",
+        "Em seus olhos encontro meu lar, em seus braços encontro minha paz.",
+        "Você transformou meus sonhos em realidade simplesmente existindo.",
+        "Nosso amor é a música mais bela que meu coração já conheceu.",
+        "Com você, cada dia é uma nova página de nossa história de amor.",
+        "Você é minha estrela guia em todas as tempestades da vida.",
+        "Amar você é respirar - natural, essencial, impossível de parar.",
+        "Seu sorriso é minha dose diária de felicidade.",
+        "Você é a resposta para orações que eu nem sabia que estava fazendo.",
+        "Em um mundo cheio de arte, você é minha obra-prima favorita.",
+        "Nosso amor é eterno como as estrelas e infinito como o universo.",
+        "Você fez do amor uma linguagem que minha alma entende perfeitamente.",
+        "Cada momento com você é um presente que guardo no coração.",
+        "Você é meu hoje, meu amanhã e meu para sempre."
+    ];
+
+    function initQuoteGenerator() {
+        const quoteElement = document.getElementById('daily-quote');
+        const newQuoteBtn = document.getElementById('new-quote-btn');
+
+        function displayRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * romanticQuotes.length);
+            const quote = romanticQuotes[randomIndex];
+            
+            if (quoteElement) {
+                // Fade out
+                quoteElement.style.opacity = '0';
+                quoteElement.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    quoteElement.textContent = quote;
+                    // Fade in
+                    quoteElement.style.opacity = '1';
+                    quoteElement.style.transform = 'translateY(0)';
+                }, 300);
+            }
+        }
+
+        function displayDailyQuote() {
+            // Use date as seed for consistent daily quote
+            const today = new Date();
+            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+            const quoteIndex = dayOfYear % romanticQuotes.length;
+            
+            if (quoteElement) {
+                quoteElement.textContent = romanticQuotes[quoteIndex];
+                quoteElement.style.opacity = '1';
+                quoteElement.style.transform = 'translateY(0)';
+            }
+        }
+
+        // Initialize with daily quote
+        displayDailyQuote();
+
+        // Add click handler for new quote button
+        if (newQuoteBtn) {
+            newQuoteBtn.addEventListener('click', () => {
+                displayRandomQuote();
+                // Add click animation
+                newQuoteBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    newQuoteBtn.style.transform = 'scale(1)';
+                }, 150);
+            });
+        }
+    }
+
+    // Initialize quote generator
+    initQuoteGenerator();
+
+    // Photo Upload Functionality
+    function initPhotoUpload() {
+        const uploadArea = document.getElementById('upload-area');
+        const photoInput = document.getElementById('photo-input');
+        const uploadedPreview = document.getElementById('uploaded-preview');
+        const previewImg = document.getElementById('preview-img');
+        const removePhotoBtn = document.getElementById('remove-photo');
+
+        if (!uploadArea || !photoInput) return;
+
+        // Click to upload
+        uploadArea.addEventListener('click', () => {
+            photoInput.click();
+        });
+
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('drag-over');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileUpload(files[0]);
+            }
+        });
+
+        // File input change
+        photoInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileUpload(e.target.files[0]);
+            }
+        });
+
+        // Remove photo
+        if (removePhotoBtn) {
+            removePhotoBtn.addEventListener('click', () => {
+                uploadedPreview.style.display = 'none';
+                uploadArea.style.display = 'flex';
+                photoInput.value = '';
+            });
+        }
+
+        function handleFileUpload(file) {
+            if (!file.type.startsWith('image/')) {
+                alert('Por favor, selecione apenas arquivos de imagem.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImg.src = e.target.result;
+                uploadArea.style.display = 'none';
+                uploadedPreview.style.display = 'block';
+                
+                // Add to gallery (simulation)
+                setTimeout(() => {
+                    showUploadSuccess();
+                }, 500);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function showUploadSuccess() {
+            const successMessage = document.createElement('div');
+            successMessage.className = 'upload-success';
+            successMessage.innerHTML = '✅ Foto adicionada com sucesso à nossa galeria de amor!';
+            successMessage.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: var(--love-gradient);
+                color: white;
+                padding: 20px 30px;
+                border-radius: 15px;
+                z-index: 10000;
+                animation: popIn 0.5s ease-out;
+                text-align: center;
+                box-shadow: var(--shadow-xl);
+            `;
+            
+            document.body.appendChild(successMessage);
+            setTimeout(() => successMessage.remove(), 3000);
+        }
+    }
+
+    // Initialize photo upload
+    initPhotoUpload();
+
+    // Love Calculator
+    function initLoveCalculator() {
+        const calculateBtn = document.getElementById('calculate-love');
+        const loveResult = document.getElementById('love-result');
+        const percentageText = document.getElementById('percentage-text');
+        const resultMessage = document.getElementById('result-message');
+
+        const loveMessages = {
+            95: "Amor perfeito! Vocês são almas gêmeas! 💖✨",
+            90: "Compatibilidade incrível! Um amor verdadeiro! 💕💫",
+            85: "Muito compatíveis! O amor está no ar! 💘💝",
+            80: "Ótima combinação! Vocês se completam! 💞🌟",
+            75: "Bem compatíveis! Um relacionamento especial! 💗💐",
+            70: "Boa compatibilidade! O amor pode florescer! 💕🌸",
+            60: "Compatibilidade interessante! Vale a pena investir! 💖🦋",
+            50: "Compatibilidade média! Trabalhem juntos! 💝🌺"
+        };
+
+        function calculateCompatibility(name1, name2) {
+            // Simple love calculation algorithm
+            const combined = (name1 + name2).toLowerCase().replace(/\s/g, '');
+            let total = 0;
+            
+            for (let i = 0; i < combined.length; i++) {
+                total += combined.charCodeAt(i);
+            }
+            
+            // Ensure Esdra & Maria Clara always get high compatibility 😊
+            if (name1.toLowerCase().includes('esdra') && name2.toLowerCase().includes('maria')) {
+                return 98;
+            }
+            
+            // Calculate percentage based on character codes
+            const percentage = Math.max(50, (total % 49) + 50);
+            return Math.min(98, percentage);
+        }
+
+        function animatePercentage(targetPercentage) {
+            let currentPercentage = 0;
+            const increment = targetPercentage / 100;
+            
+            const animation = setInterval(() => {
+                currentPercentage += increment;
+                if (currentPercentage >= targetPercentage) {
+                    currentPercentage = targetPercentage;
+                    clearInterval(animation);
+                }
+                
+                percentageText.textContent = Math.round(currentPercentage) + '%';
+                
+                // Update circle color based on percentage
+                const circle = document.querySelector('.percentage-circle');
+                if (currentPercentage >= 90) {
+                    circle.style.background = 'conic-gradient(var(--love-primary) ' + currentPercentage * 3.6 + 'deg, var(--background-secondary) 0deg)';
+                } else if (currentPercentage >= 70) {
+                    circle.style.background = 'conic-gradient(var(--love-secondary) ' + currentPercentage * 3.6 + 'deg, var(--background-secondary) 0deg)';
+                } else {
+                    circle.style.background = 'conic-gradient(var(--accent-color) ' + currentPercentage * 3.6 + 'deg, var(--background-secondary) 0deg)';
+                }
+            }, 20);
+        }
+
+        function getResultMessage(percentage) {
+            for (const threshold in loveMessages) {
+                if (percentage >= threshold) {
+                    return loveMessages[threshold];
+                }
+            }
+            return loveMessages[50];
+        }
+
+        if (calculateBtn) {
+            calculateBtn.addEventListener('click', () => {
+                const name1 = document.getElementById('name1').value.trim();
+                const name2 = document.getElementById('name2').value.trim();
+                
+                if (!name1 || !name2) {
+                    alert('Por favor, digite ambos os nomes! 💕');
+                    return;
+                }
+                
+                const compatibility = calculateCompatibility(name1, name2);
+                
+                loveResult.style.display = 'block';
+                resultMessage.textContent = getResultMessage(compatibility);
+                
+                // Reset and animate
+                percentageText.textContent = '0%';
+                animatePercentage(compatibility);
+                
+                // Add celebration effect for high compatibility
+                if (compatibility >= 90) {
+                    createHeartExplosion();
+                }
+            });
+        }
+    }
+
+    function createHeartExplosion() {
+        for (let i = 0; i < 20; i++) {
+            setTimeout(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = '💖';
+                heart.style.position = 'fixed';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.top = Math.random() * window.innerHeight + 'px';
+                heart.style.fontSize = Math.random() * 30 + 20 + 'px';
+                heart.style.pointerEvents = 'none';
+                heart.style.zIndex = '10000';
+                heart.style.animation = 'heartExplosion 2s ease-out forwards';
+                
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 2000);
+            }, i * 100);
+        }
+    }
+
+    // Romantic Countdowns
+    function initCountdowns() {
+        // Anniversary: June 24th of current or next year
+        function getNextAnniversary() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            let anniversary = new Date(currentYear, 5, 24); // June 24
+            
+            if (anniversary < now) {
+                anniversary = new Date(currentYear + 1, 5, 24);
+            }
+            
+            return anniversary;
+        }
+
+        // Birthday: You can adjust this date as needed
+        function getNextBirthday() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            let birthday = new Date(currentYear, 7, 15); // August 15 (example)
+            
+            if (birthday < now) {
+                birthday = new Date(currentYear + 1, 7, 15);
+            }
+            
+            return birthday;
+        }
+
+        function updateCountdown(targetDate, prefix) {
+            const now = new Date();
+            const difference = targetDate - now;
+            
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                
+                document.getElementById(prefix + '-days').textContent = days;
+                document.getElementById(prefix + '-hours').textContent = hours;
+                document.getElementById(prefix + '-minutes').textContent = minutes;
+                document.getElementById(prefix + '-seconds').textContent = seconds;
+            }
+        }
+
+        // Update countdowns every second
+        setInterval(() => {
+            updateCountdown(getNextAnniversary(), 'anni');
+            updateCountdown(getNextBirthday(), 'bday');
+        }, 1000);
+        
+        // Initial call
+        updateCountdown(getNextAnniversary(), 'anni');
+        updateCountdown(getNextBirthday(), 'bday');
+    }
+
+    // Initialize new features
+    initLoveCalculator();
+    initCountdowns();
+
+    // Theme Switcher
+    function initThemeSwitcher() {
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        body.classList.add(savedTheme + '-theme');
+        updateThemeIcon(savedTheme);
+        
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = body.classList.contains('dark-theme') ? 'dark' : 'light';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                
+                body.classList.remove(currentTheme + '-theme');
+                body.classList.add(newTheme + '-theme');
+                
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+                
+                // Add transition effect
+                themeToggle.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    themeToggle.style.transform = 'scale(1)';
+                }, 150);
+            });
+        }
+        
+        function updateThemeIcon(theme) {
+            const icon = themeToggle.querySelector('i');
+            if (theme === 'dark') {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        }
+    }
+
+    // Advanced Mobile Optimizations
+    function initMobileOptimizations() {
+        // Disable hover effects on touch devices
+        if ('ontouchstart' in window) {
+            document.body.classList.add('touch-device');
+        }
+        
+        // Optimize scrolling on mobile
+        let ticking = false;
+        function updateScrollEffects() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    // Your scroll-dependent code here
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', updateScrollEffects, { passive: true });
+        
+        // Reduce motion for users who prefer it
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.body.classList.add('reduced-motion');
+        }
+    }
+
+    // Initialize all features
+    initThemeSwitcher();
+    initMobileOptimizations();
 
     console.log('💖 Premium love site loaded with enhanced features! 💖');
 });
