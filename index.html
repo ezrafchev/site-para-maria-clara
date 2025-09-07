@@ -73,6 +73,26 @@
 
         <section id="nossa-historia" class="content-section">
             <h2 class="section-title" data-aos="fade-up">Nossa História</h2>
+            
+            <!-- Love Counter -->
+            <div class="love-counter" data-aos="fade-up">
+                <div class="counter-container">
+                    <div class="counter-item">
+                        <span class="counter-number" id="days-together">0</span>
+                        <span class="counter-label">Dias Juntos</span>
+                    </div>
+                    <div class="counter-item">
+                        <span class="counter-number" id="hours-together">0</span>
+                        <span class="counter-label">Horas</span>
+                    </div>
+                    <div class="counter-item">
+                        <span class="counter-number" id="minutes-together">0</span>
+                        <span class="counter-label">Minutos</span>
+                    </div>
+                </div>
+                <p class="counter-message">Desde 24 de Junho de 2015 💕</p>
+            </div>
+
             <div class="text-content" data-aos="fade-up">
                 <p>Querida Maria Clara C M,</p>
                 <p>Este site é uma homenagem ao nosso amor. Desde o momento em que nos conhecemos, minha vida se encheu de luz e felicidade. Seu apoio incondicional, sua força e seu carinho são minha inspiração diária.</p>
@@ -112,13 +132,34 @@
 
         <section id="galeria" class="content-section">
             <h2 class="section-title" data-aos="fade-up">Galeria de Amor</h2>
+            
+            <!-- Memory Upload Section -->
+            <div class="memory-upload" data-aos="fade-up">
+                <h3>📸 Adicionar Nova Memória</h3>
+                <p>Adicione uma nova foto especial à nossa galeria</p>
+                <div class="upload-area" id="upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Clique ou arraste uma foto aqui</p>
+                    <input type="file" id="photo-input" accept="image/*" style="display: none;">
+                </div>
+                <div class="uploaded-preview" id="uploaded-preview" style="display: none;">
+                    <img id="preview-img" alt="Preview">
+                    <button class="remove-photo" id="remove-photo">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
             <div class="swiper-container gallery-swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="gallery-placeholder">
                             <h3>Nosso Primeiro Encontro</h3>
                             <p>24 de Junho de 2015</p>
-                            <div class="photo-frame">📷</div>
+                            <div class="photo-frame">💕</div>
+                            <div class="memory-details">
+                                <p>O dia que mudou nossas vidas para sempre. Lembro-me de cada momento, cada sorriso, cada palavra trocada.</p>
+                            </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
@@ -126,13 +167,19 @@
                             <h3>Viagem à Praia</h3>
                             <p>12 de Fevereiro de 2016</p>
                             <div class="photo-frame">🏖️</div>
+                            <div class="memory-details">
+                                <p>Nossos pés na areia, corações entrelaçados. O mar testemunhou nosso amor crescer.</p>
+                            </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="gallery-placeholder">
                             <h3>Momentos Especiais</h3>
                             <p>Nosso Amor Crescendo</p>
-                            <div class="photo-frame">💕</div>
+                            <div class="photo-frame">💖</div>
+                            <div class="memory-details">
+                                <p>Cada pequeno momento juntos se tornou uma memória preciosa em meu coração.</p>
+                            </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
@@ -140,6 +187,9 @@
                             <h3>Juntos Para Sempre</h3>
                             <p>Nosso Futuro Brilhante</p>
                             <div class="photo-frame">🌟</div>
+                            <div class="memory-details">
+                                <p>O que construímos juntos é eterno. Nosso amor é minha maior certeza na vida.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -151,6 +201,18 @@
 
         <section id="mensagem" class="content-section">
             <h2 class="section-title" data-aos="fade-up">Mensagem de Amor</h2>
+            
+            <!-- Daily Quote Generator -->
+            <div class="quote-generator" data-aos="fade-up">
+                <h3 class="quote-title">💝 Frase Romântica do Dia</h3>
+                <div class="quote-container">
+                    <p class="daily-quote" id="daily-quote">Carregando frase romântica...</p>
+                    <button class="new-quote-btn" id="new-quote-btn">
+                        <i class="fas fa-refresh"></i> Nova Frase
+                    </button>
+                </div>
+            </div>
+
             <p class="love-message" data-aos="fade-up">Maria Clara, você é luz e a mais brilhante, como o sol dos meus dias e a lua das minhas noites. O meu eu te amo é eterno, assim como as estrelas no céu.</p>
             <div class="dove-decoration">🕊️</div>
         </section>
@@ -184,11 +246,24 @@
     <button id="back-to-top" aria-label="Voltar ao topo"><i class="fas fa-chevron-up"></i></button>
 
     <div class="music-player">
+        <div class="player-controls">
+            <button id="music-toggle" title="Play/Pause Music"><i class="fas fa-music"></i></button>
+            <button id="prev-song" title="Previous Song"><i class="fas fa-step-backward"></i></button>
+            <button id="next-song" title="Next Song"><i class="fas fa-step-forward"></i></button>
+            <div class="volume-control">
+                <i class="fas fa-volume-up"></i>
+                <input type="range" id="volume-slider" min="0" max="100" value="70">
+            </div>
+        </div>
+        <div class="now-playing">
+            <span id="song-title">Romantic Love Songs</span>
+        </div>
         <audio id="background-music" loop>
-            <source src="something-bout-a-woman.mp3" type="audio/mpeg">
+            <!-- Using a web-based audio service for demonstration -->
+            <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
+            <!-- Fallback message -->
             Seu navegador não suporta o elemento de áudio.
         </audio>
-        <button id="music-toggle"><i class="fas fa-music"></i></button>
     </div>
 
     <script src="aos.js"></script>

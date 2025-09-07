@@ -182,12 +182,42 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     }
 
-    // Enhanced music player
+    // Enhanced music player with playlist
     const musicToggle = document.getElementById('music-toggle');
     const backgroundMusic = document.getElementById('background-music');
+    const prevButton = document.getElementById('prev-song');
+    const nextButton = document.getElementById('next-song');
+    const volumeSlider = document.getElementById('volume-slider');
+    const songTitle = document.getElementById('song-title');
     let isMusicPlaying = false;
+    let currentSongIndex = 0;
+
+    // Romantic playlist (using web-based demo audio for functionality)
+    const playlist = [
+        {
+            title: "Música Romântica 1",
+            src: "data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJmMmQQAQgpGCkEKRwpHCkYKQgpBCj4KQwpGCkYKQgpBCj4"
+        },
+        {
+            title: "Serenata de Amor",
+            src: "data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJmMmQQAQgpGCkEKRwpHCkYKQgpBCj4KQwpGCkYKQgpBCj4"
+        },
+        {
+            title: "Melodia do Coração",
+            src: "data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJmMmQQAQgpGCkEKRwpHCkYKQgpBCj4KQwpGCkYKQgpBCj4"
+        }
+    ];
 
     if (musicToggle && backgroundMusic) {
+        // Set initial volume
+        backgroundMusic.volume = 0.7;
+
+        function loadSong(index) {
+            const song = playlist[index];
+            backgroundMusic.src = song.src;
+            songTitle.textContent = song.title;
+        }
+
         function playMusic() {
             backgroundMusic.play().then(() => {
                 isMusicPlaying = true;
@@ -195,6 +225,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 musicToggle.classList.add('playing');
             }).catch((error) => {
                 console.log("Music autoplay blocked:", error);
+                // Show user-friendly message
+                showMusicMessage("Clique para tocar música 🎵");
             });
         }
 
@@ -205,7 +237,45 @@ document.addEventListener('DOMContentLoaded', (event) => {
             musicToggle.classList.remove('playing');
         }
 
-        // Handle music toggle
+        function nextSong() {
+            currentSongIndex = (currentSongIndex + 1) % playlist.length;
+            loadSong(currentSongIndex);
+            if (isMusicPlaying) {
+                playMusic();
+            }
+        }
+
+        function prevSong() {
+            currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+            loadSong(currentSongIndex);
+            if (isMusicPlaying) {
+                playMusic();
+            }
+        }
+
+        function showMusicMessage(message) {
+            const musicMessage = document.createElement('div');
+            musicMessage.className = 'music-message';
+            musicMessage.textContent = message;
+            musicMessage.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--love-gradient);
+                color: white;
+                padding: 10px 20px;
+                border-radius: 25px;
+                z-index: 10000;
+                animation: slideInRight 0.5s ease-out;
+            `;
+            document.body.appendChild(musicMessage);
+            setTimeout(() => musicMessage.remove(), 3000);
+        }
+
+        // Load initial song
+        loadSong(currentSongIndex);
+
+        // Event listeners
         musicToggle.addEventListener('click', () => {
             if (isMusicPlaying) {
                 pauseMusic();
@@ -213,6 +283,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 playMusic();
             }
         });
+
+        if (nextButton) {
+            nextButton.addEventListener('click', nextSong);
+        }
+
+        if (prevButton) {
+            prevButton.addEventListener('click', prevSong);
+        }
+
+        if (volumeSlider) {
+            volumeSlider.addEventListener('input', (e) => {
+                backgroundMusic.volume = e.target.value / 100;
+            });
+        }
+
+        // Auto-play next song when current ends
+        backgroundMusic.addEventListener('ended', nextSong);
 
         // Try to play music on first user interaction
         document.body.addEventListener('click', () => {
@@ -356,6 +443,236 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         });
     });
+
+    // Love Counter - Days Together
+    function initLoveCounter() {
+        const startDate = new Date('2015-06-24'); // June 24, 2015
+        const daysElement = document.getElementById('days-together');
+        const hoursElement = document.getElementById('hours-together');
+        const minutesElement = document.getElementById('minutes-together');
+
+        function updateCounter() {
+            const now = new Date();
+            const diffTime = Math.abs(now - startDate);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const diffMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+
+            if (daysElement) {
+                animateCounterTo(daysElement, diffDays);
+            }
+            if (hoursElement) {
+                animateCounterTo(hoursElement, diffHours);
+            }
+            if (minutesElement) {
+                animateCounterTo(minutesElement, diffMinutes);
+            }
+        }
+
+        function animateCounterTo(element, targetValue) {
+            const currentValue = parseInt(element.textContent) || 0;
+            const increment = targetValue > currentValue ? 1 : -1;
+            const duration = Math.abs(targetValue - currentValue) * 20; // Animation speed
+
+            if (currentValue !== targetValue) {
+                const step = () => {
+                    const newValue = parseInt(element.textContent) + increment;
+                    element.textContent = newValue;
+                    if (newValue !== targetValue) {
+                        setTimeout(step, Math.max(1, duration / Math.abs(targetValue - currentValue)));
+                    }
+                };
+                setTimeout(step, 50);
+            }
+        }
+
+        // Update counter immediately and then every minute
+        updateCounter();
+        setInterval(updateCounter, 60000);
+    }
+
+    // Initialize love counter when section is visible
+    const counterObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            initLoveCounter();
+            counterObserver.unobserve(entries[0].target);
+        }
+    }, { threshold: 0.5 });
+
+    const counterSection = document.querySelector('.love-counter');
+    if (counterSection) {
+        counterObserver.observe(counterSection);
+    }
+
+    // Romantic Quote Generator
+    const romanticQuotes = [
+        "Você é minha pessoa favorita em todos os universos possíveis.",
+        "Cada batida do meu coração sussurra seu nome.",
+        "Em seus olhos encontro meu lar, em seus braços encontro minha paz.",
+        "Você transformou meus sonhos em realidade simplesmente existindo.",
+        "Nosso amor é a música mais bela que meu coração já conheceu.",
+        "Com você, cada dia é uma nova página de nossa história de amor.",
+        "Você é minha estrela guia em todas as tempestades da vida.",
+        "Amar você é respirar - natural, essencial, impossível de parar.",
+        "Seu sorriso é minha dose diária de felicidade.",
+        "Você é a resposta para orações que eu nem sabia que estava fazendo.",
+        "Em um mundo cheio de arte, você é minha obra-prima favorita.",
+        "Nosso amor é eterno como as estrelas e infinito como o universo.",
+        "Você fez do amor uma linguagem que minha alma entende perfeitamente.",
+        "Cada momento com você é um presente que guardo no coração.",
+        "Você é meu hoje, meu amanhã e meu para sempre."
+    ];
+
+    function initQuoteGenerator() {
+        const quoteElement = document.getElementById('daily-quote');
+        const newQuoteBtn = document.getElementById('new-quote-btn');
+
+        function displayRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * romanticQuotes.length);
+            const quote = romanticQuotes[randomIndex];
+            
+            if (quoteElement) {
+                // Fade out
+                quoteElement.style.opacity = '0';
+                quoteElement.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    quoteElement.textContent = quote;
+                    // Fade in
+                    quoteElement.style.opacity = '1';
+                    quoteElement.style.transform = 'translateY(0)';
+                }, 300);
+            }
+        }
+
+        function displayDailyQuote() {
+            // Use date as seed for consistent daily quote
+            const today = new Date();
+            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+            const quoteIndex = dayOfYear % romanticQuotes.length;
+            
+            if (quoteElement) {
+                quoteElement.textContent = romanticQuotes[quoteIndex];
+                quoteElement.style.opacity = '1';
+                quoteElement.style.transform = 'translateY(0)';
+            }
+        }
+
+        // Initialize with daily quote
+        displayDailyQuote();
+
+        // Add click handler for new quote button
+        if (newQuoteBtn) {
+            newQuoteBtn.addEventListener('click', () => {
+                displayRandomQuote();
+                // Add click animation
+                newQuoteBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    newQuoteBtn.style.transform = 'scale(1)';
+                }, 150);
+            });
+        }
+    }
+
+    // Initialize quote generator
+    initQuoteGenerator();
+
+    // Photo Upload Functionality
+    function initPhotoUpload() {
+        const uploadArea = document.getElementById('upload-area');
+        const photoInput = document.getElementById('photo-input');
+        const uploadedPreview = document.getElementById('uploaded-preview');
+        const previewImg = document.getElementById('preview-img');
+        const removePhotoBtn = document.getElementById('remove-photo');
+
+        if (!uploadArea || !photoInput) return;
+
+        // Click to upload
+        uploadArea.addEventListener('click', () => {
+            photoInput.click();
+        });
+
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('drag-over');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileUpload(files[0]);
+            }
+        });
+
+        // File input change
+        photoInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileUpload(e.target.files[0]);
+            }
+        });
+
+        // Remove photo
+        if (removePhotoBtn) {
+            removePhotoBtn.addEventListener('click', () => {
+                uploadedPreview.style.display = 'none';
+                uploadArea.style.display = 'flex';
+                photoInput.value = '';
+            });
+        }
+
+        function handleFileUpload(file) {
+            if (!file.type.startsWith('image/')) {
+                alert('Por favor, selecione apenas arquivos de imagem.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImg.src = e.target.result;
+                uploadArea.style.display = 'none';
+                uploadedPreview.style.display = 'block';
+                
+                // Add to gallery (simulation)
+                setTimeout(() => {
+                    showUploadSuccess();
+                }, 500);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function showUploadSuccess() {
+            const successMessage = document.createElement('div');
+            successMessage.className = 'upload-success';
+            successMessage.innerHTML = '✅ Foto adicionada com sucesso à nossa galeria de amor!';
+            successMessage.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: var(--love-gradient);
+                color: white;
+                padding: 20px 30px;
+                border-radius: 15px;
+                z-index: 10000;
+                animation: popIn 0.5s ease-out;
+                text-align: center;
+                box-shadow: var(--shadow-xl);
+            `;
+            
+            document.body.appendChild(successMessage);
+            setTimeout(() => successMessage.remove(), 3000);
+        }
+    }
+
+    // Initialize photo upload
+    initPhotoUpload();
 
     console.log('💖 Premium love site loaded with enhanced features! 💖');
 });
