@@ -584,7 +584,6 @@ nav {
 .menu-toggle:hover {
     background: rgba(0, 0, 0, 0.05);
     transform: scale(1.05);
-}
     -webkit-backdrop-filter: blur(25px) saturate(200%);
     box-shadow: var(--shadow-md);
 }
@@ -716,8 +715,6 @@ nav {
 
 .menu-toggle:active {
     transform: scale(0.95);
-}
-    transform: scale(1.1);
 }
 
 /* Premium Main Content */
@@ -2859,8 +2856,6 @@ footer p {
         transform: translateX(0);
         opacity: 1;
     }
-}
-    box-shadow: 0 8px 30px var(--shadow-dark);
 }
 
 #music-toggle.playing {

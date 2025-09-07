@@ -42,6 +42,9 @@
     "swiper-bundle.min.js",
     "aos.js",
     "node_modules/**",
-    "dist/**"
+    "dist/**",
+    "playwright-report/**",
+    "test-results/**",
+    "coverage/**"
   ]
 }
