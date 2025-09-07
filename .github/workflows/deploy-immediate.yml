@@ -1,0 +1,35 @@
+name: Immediate Deploy - Any Branch
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to deploy (default: current branch)'
+        required: false
+        default: ''
+
+jobs:
+  deploy-immediate:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.inputs.branch || github.ref }}
+    
+    - name: Deploy immediately to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: .
+        force_orphan: true
+        enable_jekyll: false
+        commit_message: 'Immediate deploy from ${{ github.event.inputs.branch || github.ref_name }}'
+    
+    - name: Create deployment summary
+      run: |
+        echo "## 🚀 Immediate Deployment Completed" >> $GITHUB_STEP_SUMMARY
+        echo "- **Branch deployed:** ${{ github.event.inputs.branch || github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Site URL:** https://ezrafchev.github.io/site-para-maria-clara/" >> $GITHUB_STEP_SUMMARY
+        echo "- **Deployment time:** $(date)" >> $GITHUB_STEP_SUMMARY
+        echo "- **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
