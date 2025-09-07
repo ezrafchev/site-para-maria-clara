@@ -26,7 +26,7 @@ describe('Love Story Website Unit Tests', () => {
       expect(calculateLove('Esdra', 'Maria Clara')).toBeGreaterThan(0)
       expect(calculateLove('Esdra', 'Maria Clara')).toBeLessThanOrEqual(100)
       expect(calculateLove('', '')).toBe(0)
-      
+
       // Should be consistent
       const result1 = calculateLove('Esdra', 'Maria Clara')
       const result2 = calculateLove('Esdra', 'Maria Clara')
@@ -68,11 +68,11 @@ describe('Love Story Website Unit Tests', () => {
       }
 
       expect(document.body.classList.contains('dark-theme')).toBe(false)
-      
+
       const isDark = toggleTheme()
       expect(isDark).toBe(true)
       expect(document.body.classList.contains('dark-theme')).toBe(true)
-      
+
       const isLight = toggleTheme()
       expect(isLight).toBe(false)
       expect(document.body.classList.contains('dark-theme')).toBe(false)
@@ -82,20 +82,20 @@ describe('Love Story Website Unit Tests', () => {
   describe('Romantic Quotes', () => {
     it('should have romantic quotes available', () => {
       const romanticQuotes = [
-        "Em um mundo cheio de arte, você é minha obra-prima favorita.",
-        "Seu sorriso é a luz que ilumina meus dias mais escuros.",
-        "Cada batida do meu coração sussurra seu nome.",
-        "Você não é apenas meu amor, você é meu lar.",
-        "Nos seus olhos encontro meu universo inteiro."
+        'Em um mundo cheio de arte, você é minha obra-prima favorita.',
+        'Seu sorriso é a luz que ilumina meus dias mais escuros.',
+        'Cada batida do meu coração sussurra seu nome.',
+        'Você não é apenas meu amor, você é meu lar.',
+        'Nos seus olhos encontro meu universo inteiro.'
       ]
 
       expect(romanticQuotes).toHaveLength(5)
       expect(romanticQuotes[0]).toContain('obra-prima')
-      
+
       const getRandomQuote = () => {
         return romanticQuotes[Math.floor(Math.random() * romanticQuotes.length)]
       }
-      
+
       const quote = getRandomQuote()
       expect(romanticQuotes).toContain(quote)
     })
@@ -107,21 +107,21 @@ describe('Love Story Website Unit Tests', () => {
         const now = new Date()
         const target = new Date(targetDate)
         const diff = target - now
-        
+
         if (diff <= 0) return null
-        
+
         const days = Math.floor(diff / (1000 * 60 * 60 * 24))
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
         const seconds = Math.floor((diff % (1000 * 60)) / 1000)
-        
+
         return { days, hours, minutes, seconds }
       }
 
       // Test with a future date
       const futureDate = new Date()
       futureDate.setDate(futureDate.getDate() + 1)
-      
+
       const countdown = calculateCountdown(futureDate)
       expect(countdown).not.toBeNull()
       expect(countdown.days).toBeGreaterThanOrEqual(0)
