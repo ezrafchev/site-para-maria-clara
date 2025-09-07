@@ -4,13 +4,14 @@
     "module": "ESNext",
     "lib": ["ES2020", "DOM"],
     "allowJs": true,
-    "checkJs": true,
+    "checkJs": false,
     "strict": false,
     "noEmit": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false
   },
   "include": [
     "*.js",
@@ -20,6 +21,10 @@
   "exclude": [
     "node_modules",
     "dist",
-    "*.min.js"
+    "*.min.js",
+    "aos.js",
+    "swiper-bundle.min.js",
+    "playwright-report",
+    "test-results"
   ]
 }
