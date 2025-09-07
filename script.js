@@ -674,5 +674,252 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Initialize photo upload
     initPhotoUpload();
 
+    // Love Calculator
+    function initLoveCalculator() {
+        const calculateBtn = document.getElementById('calculate-love');
+        const loveResult = document.getElementById('love-result');
+        const percentageText = document.getElementById('percentage-text');
+        const resultMessage = document.getElementById('result-message');
+
+        const loveMessages = {
+            95: "Amor perfeito! Vocês são almas gêmeas! 💖✨",
+            90: "Compatibilidade incrível! Um amor verdadeiro! 💕💫",
+            85: "Muito compatíveis! O amor está no ar! 💘💝",
+            80: "Ótima combinação! Vocês se completam! 💞🌟",
+            75: "Bem compatíveis! Um relacionamento especial! 💗💐",
+            70: "Boa compatibilidade! O amor pode florescer! 💕🌸",
+            60: "Compatibilidade interessante! Vale a pena investir! 💖🦋",
+            50: "Compatibilidade média! Trabalhem juntos! 💝🌺"
+        };
+
+        function calculateCompatibility(name1, name2) {
+            // Simple love calculation algorithm
+            const combined = (name1 + name2).toLowerCase().replace(/\s/g, '');
+            let total = 0;
+            
+            for (let i = 0; i < combined.length; i++) {
+                total += combined.charCodeAt(i);
+            }
+            
+            // Ensure Esdra & Maria Clara always get high compatibility 😊
+            if (name1.toLowerCase().includes('esdra') && name2.toLowerCase().includes('maria')) {
+                return 98;
+            }
+            
+            // Calculate percentage based on character codes
+            const percentage = Math.max(50, (total % 49) + 50);
+            return Math.min(98, percentage);
+        }
+
+        function animatePercentage(targetPercentage) {
+            let currentPercentage = 0;
+            const increment = targetPercentage / 100;
+            
+            const animation = setInterval(() => {
+                currentPercentage += increment;
+                if (currentPercentage >= targetPercentage) {
+                    currentPercentage = targetPercentage;
+                    clearInterval(animation);
+                }
+                
+                percentageText.textContent = Math.round(currentPercentage) + '%';
+                
+                // Update circle color based on percentage
+                const circle = document.querySelector('.percentage-circle');
+                if (currentPercentage >= 90) {
+                    circle.style.background = 'conic-gradient(var(--love-primary) ' + currentPercentage * 3.6 + 'deg, var(--background-secondary) 0deg)';
+                } else if (currentPercentage >= 70) {
+                    circle.style.background = 'conic-gradient(var(--love-secondary) ' + currentPercentage * 3.6 + 'deg, var(--background-secondary) 0deg)';
+                } else {
+                    circle.style.background = 'conic-gradient(var(--accent-color) ' + currentPercentage * 3.6 + 'deg, var(--background-secondary) 0deg)';
+                }
+            }, 20);
+        }
+
+        function getResultMessage(percentage) {
+            for (const threshold in loveMessages) {
+                if (percentage >= threshold) {
+                    return loveMessages[threshold];
+                }
+            }
+            return loveMessages[50];
+        }
+
+        if (calculateBtn) {
+            calculateBtn.addEventListener('click', () => {
+                const name1 = document.getElementById('name1').value.trim();
+                const name2 = document.getElementById('name2').value.trim();
+                
+                if (!name1 || !name2) {
+                    alert('Por favor, digite ambos os nomes! 💕');
+                    return;
+                }
+                
+                const compatibility = calculateCompatibility(name1, name2);
+                
+                loveResult.style.display = 'block';
+                resultMessage.textContent = getResultMessage(compatibility);
+                
+                // Reset and animate
+                percentageText.textContent = '0%';
+                animatePercentage(compatibility);
+                
+                // Add celebration effect for high compatibility
+                if (compatibility >= 90) {
+                    createHeartExplosion();
+                }
+            });
+        }
+    }
+
+    function createHeartExplosion() {
+        for (let i = 0; i < 20; i++) {
+            setTimeout(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = '💖';
+                heart.style.position = 'fixed';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.top = Math.random() * window.innerHeight + 'px';
+                heart.style.fontSize = Math.random() * 30 + 20 + 'px';
+                heart.style.pointerEvents = 'none';
+                heart.style.zIndex = '10000';
+                heart.style.animation = 'heartExplosion 2s ease-out forwards';
+                
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 2000);
+            }, i * 100);
+        }
+    }
+
+    // Romantic Countdowns
+    function initCountdowns() {
+        // Anniversary: June 24th of current or next year
+        function getNextAnniversary() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            let anniversary = new Date(currentYear, 5, 24); // June 24
+            
+            if (anniversary < now) {
+                anniversary = new Date(currentYear + 1, 5, 24);
+            }
+            
+            return anniversary;
+        }
+
+        // Birthday: You can adjust this date as needed
+        function getNextBirthday() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            let birthday = new Date(currentYear, 7, 15); // August 15 (example)
+            
+            if (birthday < now) {
+                birthday = new Date(currentYear + 1, 7, 15);
+            }
+            
+            return birthday;
+        }
+
+        function updateCountdown(targetDate, prefix) {
+            const now = new Date();
+            const difference = targetDate - now;
+            
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                
+                document.getElementById(prefix + '-days').textContent = days;
+                document.getElementById(prefix + '-hours').textContent = hours;
+                document.getElementById(prefix + '-minutes').textContent = minutes;
+                document.getElementById(prefix + '-seconds').textContent = seconds;
+            }
+        }
+
+        // Update countdowns every second
+        setInterval(() => {
+            updateCountdown(getNextAnniversary(), 'anni');
+            updateCountdown(getNextBirthday(), 'bday');
+        }, 1000);
+        
+        // Initial call
+        updateCountdown(getNextAnniversary(), 'anni');
+        updateCountdown(getNextBirthday(), 'bday');
+    }
+
+    // Initialize new features
+    initLoveCalculator();
+    initCountdowns();
+
+    // Theme Switcher
+    function initThemeSwitcher() {
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        body.classList.add(savedTheme + '-theme');
+        updateThemeIcon(savedTheme);
+        
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = body.classList.contains('dark-theme') ? 'dark' : 'light';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                
+                body.classList.remove(currentTheme + '-theme');
+                body.classList.add(newTheme + '-theme');
+                
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+                
+                // Add transition effect
+                themeToggle.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    themeToggle.style.transform = 'scale(1)';
+                }, 150);
+            });
+        }
+        
+        function updateThemeIcon(theme) {
+            const icon = themeToggle.querySelector('i');
+            if (theme === 'dark') {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        }
+    }
+
+    // Advanced Mobile Optimizations
+    function initMobileOptimizations() {
+        // Disable hover effects on touch devices
+        if ('ontouchstart' in window) {
+            document.body.classList.add('touch-device');
+        }
+        
+        // Optimize scrolling on mobile
+        let ticking = false;
+        function updateScrollEffects() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    // Your scroll-dependent code here
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', updateScrollEffects, { passive: true });
+        
+        // Reduce motion for users who prefer it
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.body.classList.add('reduced-motion');
+        }
+    }
+
+    // Initialize all features
+    initThemeSwitcher();
+    initMobileOptimizations();
+
     console.log('💖 Premium love site loaded with enhanced features! 💖');
 });

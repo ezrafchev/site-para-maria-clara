@@ -219,6 +219,78 @@
 
         <section id="promessas" class="content-section" data-aos="fade-up">
             <h2 class="section-title">Nossas Promessas</h2>
+            
+            <!-- Love Calculator -->
+            <div class="love-calculator" data-aos="fade-up">
+                <h3>💘 Calculadora do Amor</h3>
+                <p>Descubra a compatibilidade perfeita entre nossos nomes!</p>
+                <div class="calculator-form">
+                    <div class="name-inputs">
+                        <input type="text" id="name1" placeholder="Primeiro nome" value="Esdra">
+                        <div class="heart-separator">💝</div>
+                        <input type="text" id="name2" placeholder="Segundo nome" value="Maria Clara">
+                    </div>
+                    <button id="calculate-love" class="calculate-btn">
+                        <i class="fas fa-heart"></i> Calcular Compatibilidade
+                    </button>
+                    <div class="love-result" id="love-result" style="display: none;">
+                        <div class="percentage-circle">
+                            <div class="percentage-text" id="percentage-text">0%</div>
+                        </div>
+                        <p class="result-message" id="result-message"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Romantic Countdowns -->
+            <div class="romantic-countdowns" data-aos="fade-up">
+                <h3>⏰ Contagem Regressiva Romântica</h3>
+                <div class="countdown-grid">
+                    <div class="countdown-item">
+                        <h4>💍 Próximo Aniversário de Namoro</h4>
+                        <div class="countdown-display" id="anniversary-countdown">
+                            <div class="time-unit">
+                                <span class="time-number" id="anni-days">0</span>
+                                <span class="time-label">Dias</span>
+                            </div>
+                            <div class="time-unit">
+                                <span class="time-number" id="anni-hours">0</span>
+                                <span class="time-label">Horas</span>
+                            </div>
+                            <div class="time-unit">
+                                <span class="time-number" id="anni-minutes">0</span>
+                                <span class="time-label">Min</span>
+                            </div>
+                            <div class="time-unit">
+                                <span class="time-number" id="anni-seconds">0</span>
+                                <span class="time-label">Seg</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="countdown-item">
+                        <h4>🎂 Próximo Aniversário da Maria Clara</h4>
+                        <div class="countdown-display" id="birthday-countdown">
+                            <div class="time-unit">
+                                <span class="time-number" id="bday-days">0</span>
+                                <span class="time-label">Dias</span>
+                            </div>
+                            <div class="time-unit">
+                                <span class="time-number" id="bday-hours">0</span>
+                                <span class="time-label">Horas</span>
+                            </div>
+                            <div class="time-unit">
+                                <span class="time-number" id="bday-minutes">0</span>
+                                <span class="time-label">Min</span>
+                            </div>
+                            <div class="time-unit">
+                                <span class="time-number" id="bday-seconds">0</span>
+                                <span class="time-label">Seg</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="promises-grid">
                 <div class="promise-card" data-aos="flip-left">
                     <div class="promise-icon">💖</div>
@@ -244,6 +316,13 @@
     </footer>
 
     <button id="back-to-top" aria-label="Voltar ao topo"><i class="fas fa-chevron-up"></i></button>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button id="theme-toggle" aria-label="Alternar tema">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
 
     <div class="music-player">
         <div class="player-controls">
