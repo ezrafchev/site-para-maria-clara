@@ -61,8 +61,32 @@
     <!-- Preload Critical Resources -->
     <link rel="preload" href="fonts.css" as="style">
     <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="script.js" as="script">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Esdra ♥ Maria Clara - Nossa História de Amor",
+      "description": "Uma linda história de amor entre Esdra e Maria Clara. Momentos especiais, memórias inesquecíveis e um amor eterno.",
+      "url": "https://ezrafchev.github.io/site-para-maria-clara/",
+      "author": {
+        "@type": "Person",
+        "name": "Esdra"
+      },
+      "dateCreated": "2015-06-24",
+      "inLanguage": "pt-BR",
+      "keywords": "amor, história de amor, romance, Esdra, Maria Clara, casal",
+      "copyrightYear": 2024,
+      "copyrightHolder": {
+        "@type": "Person",
+        "name": "Esdra"
+      }
+    }
+    </script>
 </head>
 <body>
     <!-- Skip Navigation -->
@@ -176,7 +200,7 @@
                     <input type="file" id="photo-input" accept="image/*" style="display: none;" aria-label="Adicionar nova foto à galeria">
                 </div>
                 <div class="uploaded-preview" id="uploaded-preview" style="display: none;">
-                    <img id="preview-img" alt="Preview">
+                    <img id="preview-img" alt="Preview" loading="lazy">
                     <button class="remove-photo" id="remove-photo">
                         <i class="fas fa-times"></i>
                     </button>
