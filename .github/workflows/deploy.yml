@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - copilot/fix-0028bc64-d8a0-4245-ad67-4e22fed19b28
 
 jobs:
   deploy:
