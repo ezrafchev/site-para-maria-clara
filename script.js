@@ -242,9 +242,13 @@ document.addEventListener('DOMContentLoaded', () => {
         musicToggle.innerHTML = '<i class="fas fa-pause"></i>'
         musicToggle.classList.add('playing')
       }).catch((error) => {
-        console.log('Music autoplay blocked:', error)
-        // Show user-friendly message
+        // Music autoplay blocked - show user-friendly message
         showMusicMessage('Clique para tocar música 🎵')
+        // Log in development only
+        if (typeof process === 'undefined' || process.env.NODE_ENV !== 'production') {
+          // eslint-disable-next-line no-console
+          console.log('Music autoplay blocked:', error)
+        }
       })
     }
 
