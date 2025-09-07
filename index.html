@@ -9,6 +9,8 @@
     <meta name="description" content="Uma linda história de amor entre Esdra e Maria Clara. Momentos especiais, memórias inesquecíveis e um amor eterno.">
     <meta name="keywords" content="amor, história de amor, romance, Esdra, Maria Clara, casal">
     <meta name="author" content="Esdra">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="pt-BR">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -16,13 +18,30 @@
     <meta property="og:title" content="Esdra ♥ Maria Clara - Nossa História de Amor">
     <meta property="og:description" content="Uma linda história de amor entre Esdra e Maria Clara. Momentos especiais, memórias inesquecíveis e um amor eterno.">
     <meta property="og:image" content="https://ezrafchev.github.io/site-para-maria-clara/assets/images/love-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="pt_BR">
     
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://ezrafchev.github.io/site-para-maria-clara/">
-    <meta property="twitter:title" content="Esdra ♥ Maria Clara - Nossa História de Amor">
-    <meta property="twitter:description" content="Uma linda história de amor entre Esdra e Maria Clara. Momentos especiais, memórias inesquecíveis e um amor eterno.">
-    <meta property="twitter:image" content="https://ezrafchev.github.io/site-para-maria-clara/assets/images/love-preview.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ezrafchev.github.io/site-para-maria-clara/">
+    <meta name="twitter:title" content="Esdra ♥ Maria Clara - Nossa História de Amor">
+    <meta name="twitter:description" content="Uma linda história de amor entre Esdra e Maria Clara. Momentos especiais, memórias inesquecíveis e um amor eterno.">
+    <meta name="twitter:image" content="https://ezrafchev.github.io/site-para-maria-clara/assets/images/love-preview.jpg">
+    
+    <!-- Apple Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="E&M Love Story">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Microsoft Meta Tags -->
+    <meta name="msapplication-TileColor" content="#ff6b6b">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    
+    <!-- PWA Theme Colors -->
+    <meta name="theme-color" content="#ff6b6b">
+    <meta name="background-color" content="#ffffff">
     
     <!-- Local Stylesheets -->
     <link rel="stylesheet" href="fonts.css">
@@ -31,11 +50,48 @@
     <link rel="stylesheet" href="swiper-bundle.min.css">
     <link rel="stylesheet" href="style.css">
     
-    <!-- Favicon -->
+    <!-- Favicon and Icons -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff6b6b">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="fonts.css" as="style">
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Esdra ♥ Maria Clara - Nossa História de Amor",
+      "description": "Uma linda história de amor entre Esdra e Maria Clara. Momentos especiais, memórias inesquecíveis e um amor eterno.",
+      "url": "https://ezrafchev.github.io/site-para-maria-clara/",
+      "author": {
+        "@type": "Person",
+        "name": "Esdra"
+      },
+      "dateCreated": "2015-06-24",
+      "inLanguage": "pt-BR",
+      "keywords": "amor, história de amor, romance, Esdra, Maria Clara, casal",
+      "copyrightYear": 2024,
+      "copyrightHolder": {
+        "@type": "Person",
+        "name": "Esdra"
+      }
+    }
+    </script>
 </head>
 <body>
+    <!-- Skip Navigation -->
+    <a href="#main-content" class="skip-to-main">Pular para o conteúdo principal</a>
+    
     <div id="preloader">
         <div class="heart-loader"></div>
     </div>
@@ -60,7 +116,7 @@
         </nav>
     </header>
 
-    <main>
+    <main id="main-content">
         <section id="inicio" class="hero parallax-bg">
             <div class="hero-content" data-aos="fade-up">
                 <h1 class="floating-element">Esdra & Maria Clara</h1>
@@ -140,10 +196,11 @@
                 <div class="upload-area" id="upload-area">
                     <i class="fas fa-cloud-upload-alt"></i>
                     <p>Clique ou arraste uma foto aqui</p>
-                    <input type="file" id="photo-input" accept="image/*" style="display: none;">
+                    <label for="photo-input" class="sr-only">Adicionar nova foto à galeria</label>
+                    <input type="file" id="photo-input" accept="image/*" style="display: none;" aria-label="Adicionar nova foto à galeria">
                 </div>
                 <div class="uploaded-preview" id="uploaded-preview" style="display: none;">
-                    <img id="preview-img" alt="Preview">
+                    <img id="preview-img" alt="Preview" loading="lazy">
                     <button class="remove-photo" id="remove-photo">
                         <i class="fas fa-times"></i>
                     </button>
@@ -226,9 +283,11 @@
                 <p>Descubra a compatibilidade perfeita entre nossos nomes!</p>
                 <div class="calculator-form">
                     <div class="name-inputs">
-                        <input type="text" id="name1" placeholder="Primeiro nome" value="Esdra">
+                        <label for="name1" class="sr-only">Primeiro nome</label>
+                        <input type="text" id="name1" placeholder="Primeiro nome" value="Esdra" aria-label="Primeiro nome">
                         <div class="heart-separator">💝</div>
-                        <input type="text" id="name2" placeholder="Segundo nome" value="Maria Clara">
+                        <label for="name2" class="sr-only">Segundo nome</label>
+                        <input type="text" id="name2" placeholder="Segundo nome" value="Maria Clara" aria-label="Segundo nome">
                     </div>
                     <button id="calculate-love" class="calculate-btn">
                         <i class="fas fa-heart"></i> Calcular Compatibilidade
@@ -331,15 +390,17 @@
             <button id="next-song" title="Next Song"><i class="fas fa-step-forward"></i></button>
             <div class="volume-control">
                 <i class="fas fa-volume-up"></i>
-                <input type="range" id="volume-slider" min="0" max="100" value="70">
+                <label for="volume-slider" class="sr-only">Volume da música</label>
+                <input type="range" id="volume-slider" min="0" max="100" value="70" aria-label="Volume da música">
             </div>
         </div>
         <div class="now-playing">
             <span id="song-title">Romantic Love Songs</span>
         </div>
         <audio id="background-music" loop>
-            <!-- Using a web-based audio service for demonstration -->
-            <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
+            <!-- Local audio files for romantic background music -->
+            <source src="assets/audio/romantic-music-1.mp3" type="audio/mpeg">
+            <source src="assets/audio/romantic-music-1.ogg" type="audio/ogg">
             <!-- Fallback message -->
             Seu navegador não suporta o elemento de áudio.
         </audio>

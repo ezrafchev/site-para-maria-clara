@@ -1,0 +1,3 @@
+# Placeholder for audio files
+# This directory will contain romantic background music
+echo "Audio placeholder" > placeholder.txt
