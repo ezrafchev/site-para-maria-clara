@@ -24,6 +24,14 @@
     "no-trailing-spaces": "error",
     "eol-last": "error"
   },
+  "overrides": [
+    {
+      "files": ["scripts/*.js"],
+      "rules": {
+        "no-console": "off"
+      }
+    }
+  ],
   "globals": {
     "AOS": "readonly",
     "Swiper": "readonly",

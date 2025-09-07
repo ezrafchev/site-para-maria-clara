@@ -32,3 +32,8 @@ build/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Test artifacts
+playwright-report/
+test-results/
+coverage/

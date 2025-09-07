@@ -919,6 +919,4 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize all features
   initThemeSwitcher()
   initMobileOptimizations()
-
-  console.log('💖 Premium love site loaded with enhanced features! 💖')
 })
