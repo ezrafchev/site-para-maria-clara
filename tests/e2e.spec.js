@@ -35,11 +35,11 @@ test.describe('Love Story Website E2E Tests', () => {
   test('should have working image gallery', async ({ page }) => {
     await expect(page.locator('#galeria')).toBeVisible()
     await expect(page.locator('.swiper-container')).toBeVisible()
-    
+
     // Test gallery navigation
     const nextButton = page.locator('.swiper-button-next')
     const prevButton = page.locator('.swiper-button-prev')
-    
+
     await expect(nextButton).toBeVisible()
     await expect(prevButton).toBeVisible()
   })
@@ -65,11 +65,11 @@ test.describe('Love Story Website E2E Tests', () => {
   test('should have working theme switcher', async ({ page }) => {
     const themeToggle = page.locator('#theme-toggle')
     await expect(themeToggle).toBeVisible()
-    
+
     // Click theme toggle and verify dark mode
     await themeToggle.click()
     await expect(page.locator('body')).toHaveClass(/dark-theme/)
-    
+
     // Click again to return to light mode
     await themeToggle.click()
     await expect(page.locator('body')).not.toHaveClass(/dark-theme/)
@@ -79,18 +79,18 @@ test.describe('Love Story Website E2E Tests', () => {
     // Check anniversary countdown
     await expect(page.getByText('Próximo Aniversário de Namoro')).toBeVisible()
     await expect(page.locator('.countdown-timer')).toBeVisible()
-    
+
     // Check birthday countdown
     await expect(page.getByText('Próximo Aniversário da Maria Clara')).toBeVisible()
   })
 
   test('should be responsive on mobile', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 })
-    
+
     // Check mobile navigation
     const menuToggle = page.locator('.menu-toggle')
     await expect(menuToggle).toBeVisible()
-    
+
     // Test mobile menu
     await menuToggle.click()
     await expect(page.locator('nav ul')).toBeVisible()
@@ -106,14 +106,14 @@ test.describe('Love Story Website E2E Tests', () => {
 
     await page.goto('/')
     await page.waitForLoadState('networkidle')
-    
+
     // Filter out network errors for external resources (expected in test environment)
-    const criticalErrors = errors.filter(error => 
+    const criticalErrors = errors.filter(error =>
       !error.includes('net::ERR_BLOCKED_BY_CLIENT') &&
       !error.includes('404') &&
       !error.includes('Failed to load resource')
     )
-    
+
     expect(criticalErrors).toHaveLength(0)
   })
 

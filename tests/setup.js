@@ -1,5 +1,5 @@
 // Test setup for vitest
-import { expect, beforeEach } from 'vitest'
+import { beforeEach } from 'vitest'
 
 // Mock DOM APIs that might not be available in test environment
 Object.defineProperty(window, 'matchMedia', {
@@ -18,9 +18,9 @@ Object.defineProperty(window, 'matchMedia', {
 
 // Mock localStorage
 const localStorageMock = {
-  getItem: (key) => null,
-  setItem: (key, value) => {},
-  removeItem: (key) => {},
+  getItem: () => null,
+  setItem: () => {},
+  removeItem: () => {},
   clear: () => {},
 }
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { readFileSync, writeFileSync } from 'fs'
+import { writeFileSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
@@ -10,7 +10,7 @@ const __dirname = dirname(__filename)
 // Create simple SVG icons for PWA
 function createPWAIcons() {
   console.log('📱 Creating PWA icons...')
-  
+
   // Heart-themed SVG icon
   const svgIcon = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
@@ -60,7 +60,7 @@ function createPWAIcons() {
         </tile>
     </msapplication>
 </browserconfig>`
-  
+
   writeFileSync(join(__dirname, '../public/browserconfig.xml'), browserConfig)
   console.log('✅ Created browserconfig.xml')
 

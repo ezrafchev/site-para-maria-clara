@@ -26,6 +26,14 @@
   },
   "globals": {
     "AOS": "readonly",
-    "Swiper": "readonly"
-  }
+    "Swiper": "readonly",
+    "define": "readonly"
+  },
+  "ignorePatterns": [
+    "*.min.js",
+    "swiper-bundle.min.js",
+    "aos.js",
+    "node_modules/**",
+    "dist/**"
+  ]
 }
