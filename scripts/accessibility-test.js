@@ -26,8 +26,15 @@ async function runAccessibilityTests() {
       },
       {
         name: 'Has proper heading structure',
-        test: () => htmlContent.includes('<h1>') && htmlContent.includes('<h2>'),
-        message: 'Page should have proper heading hierarchy (h1, h2, etc.)'
+        test: () => {
+          const h1Count = (htmlContent.match(/<h1[^>]*>/g) || []).length
+          const h2Count = (htmlContent.match(/<h2[^>]*>/g) || []).length
+          const h3Count = (htmlContent.match(/<h3[^>]*>/g) || []).length
+          
+          // Should have exactly one h1 and at least one h2
+          return h1Count === 1 && h2Count > 0
+        },
+        message: 'Page should have exactly one h1 and at least one h2 for proper hierarchy'
       },
       {
         name: 'Images have alt attributes',
